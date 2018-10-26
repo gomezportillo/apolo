@@ -15,3 +15,5 @@ social_username: pedroma_almagro
 
 markdown: kramdown
 future: true
+
+theme: jekyll-theme-architect
