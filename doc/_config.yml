@@ -1,0 +1,17 @@
+title: Apolo.
+description: Music partner finder.<br>Project by Pedro Manuel Gómez-Portillo.
+show_downloads: false
+remote_theme: broccolini/swiss
+theme_color: red
+
+baseurl: "/apolo"
+url: "https://gomezportillo.github.io"
+
+github_repo: apolo
+github_username: gomezportillo
+
+social_link: twitter
+social_username: pedroma_almagro
+
+markdown: kramdown
+future: true
