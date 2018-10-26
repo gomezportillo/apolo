@@ -4,6 +4,8 @@ title: Acerca de
 permalink: /about/
 ---
 
+Esta sección contiene información técnica acerca del proyecto **Apolo**.
+
 ## Breve descripción del proyecto
 
 Plataforma para encontrar compañeros con los que tocar música.
@@ -15,10 +17,23 @@ Cada vez es más común que la gente aprenda a tocar instrumentos y toque en ban
 Los usuarios de **Apolo** se registrarán facilitando datos como intrumento que tocan, nivel de educación musical, intereses musicales y distancia que están dispuestos a recorrer para quedar con gente, y podrán buscar otras personas según estos mismos parámetros.
 
 
-## Arquitectura y  Despliegue
+## Arquitectura
 
-El back-end de Apolo se desarrollará en [Node.js](https://nodejs.org/) y [MongoDB](https://www.mongodb.com/). Además, se utilizará una arquitectura basada en microservicios para facilitar su escalabilidad y aumentar su mantenibilidad.
+Apolo está desarrollado en [Node.js](https://nodejs.org/) y utiliza una arquitectura basada en microservicios para facilitar su escalabilidad y aumentar su mantenibilidad.
+
+* Un microservicio para registrar nuevos usuarios
+* Un microservicio para atender las búsquedas de los usuarios
+
+Además, se plantea la posibilidad de crear nuevos microservicios según avance el proyecto que atiendan nuevas necesidades.
+
+# Despliegue
+
+Este proyecto se desplegará en [Heroku](https://www.heroku.com) y [Azure](https://azure.microsoft.com).
 
 ## Licencia
 
 Este proyecto y todos sus archivos se comparten bajo la [MIT License](https://github.com/gomezportillo/apolo/blob/master/LICENSE)
+
+****
+
+Puede que a lo largo del desarrollo del proyecto las características de **Apolo** cambien.
