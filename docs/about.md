@@ -16,13 +16,16 @@ Cada vez es más común que la gente aprenda a tocar instrumentos y toque en ban
 
 Los usuarios de **Apolo** se registrarán facilitando datos como intrumento que tocan, nivel de educación musical, intereses musicales y distancia que están dispuestos a recorrer para quedar con gente, y podrán buscar otras personas según estos mismos parámetros.
 
+Además, los usuarios podrán programar alertas para ser notificado cuando un nuevo usuario correspondiente a sus necesidades se registre.
+
 
 ## Arquitectura
 
 Apolo está desarrollado en [Node.js](https://nodejs.org/) y utiliza una arquitectura basada en microservicios para facilitar su escalabilidad y aumentar su mantenibilidad.
 
-* Un microservicio para registrar nuevos usuarios
-* Un microservicio para atender las búsquedas de los usuarios
+* Un microservicio para registrar nuevos usuarios.
+* Un microservicio para atender las búsquedas de los usuarios.
+* Un miocroservicio para gestionar las alertas que los usuarios creen.
 
 Además, se plantea la posibilidad de crear nuevos microservicios según avance el proyecto que atiendan nuevas necesidades.
 
