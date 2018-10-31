@@ -1,5 +1,7 @@
 # Proyecto de Cloud Computing
 
-Sitio web: [https://gomezportillo.github.io/apolo/](https://gomezportillo.github.io/apolo/).
+Página web: [https://gomezportillo.github.io/apolo/](https://gomezportillo.github.io/apolo/).
 
 Información técnica: [https://gomezportillo.github.io/apolo/about](https://gomezportillo.github.io/apolo/about).
+
+Aplicación desplegada en Heroku: [https://apolo-cc.herokuapp.com/](https://apolo-cc.herokuapp.com/).
