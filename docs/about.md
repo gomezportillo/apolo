@@ -21,7 +21,7 @@ Además, los usuarios podrán programar alertas para ser notificado cuando un nu
 
 ## Arquitectura
 
-Apolo está desarrollado en [Node.js](https://nodejs.org/) y utiliza una arquitectura basada en microservicios para facilitar su escalabilidad y aumentar su mantenibilidad.
+Apolo está desarrollado en [Python3](https://www.python.org/) y utiliza una arquitectura basada en microservicios para facilitar su escalabilidad y aumentar su mantenibilidad.
 
 * Un microservicio para registrar nuevos usuarios.
 * Un microservicio para atender las búsquedas de los usuarios.
