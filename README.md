@@ -1,15 +1,50 @@
 # Proyecto de Cloud Computing
 
-Página web: [https://gomezportillo.github.io/apolo/](https://gomezportillo.github.io/apolo/).
+[Página web del proyecto](https://gomezportillo.github.io/apolo/).
 
-Información técnica: [https://gomezportillo.github.io/apolo/about](https://gomezportillo.github.io/apolo/about).
+## Descripción del problema
+
+Cada vez es más común que la gente aprenda a tocar instrumentos y toque en bandas, pero es dificil encontrar personas con tu misma educación musical y gustos con los que poder quedar para ensayar.
+
+## Solución propuesta
+
+**Apolo** nace como una plataforma para poner en contacto a personas que busquen compañeros para compartir su afición a la música.
+
+## Definición del proyecto
+
+Este proyecto es el back-end un servicio que almacenará los datos de sus usuarios, como los instrumento que tocan, su nivel de educación musical, sus intereses musicales y la distancia que están dispuestos a recorrer para quedar con gente.
+
+Para conseguir enviar infirmación, **Apolo** usará una [API REST](https://bbvaopen4u.com/es/actualidad/api-rest-que-es-y-cuales-son-sus-ventajas-en-el-desarrollo-de-proyectos), es decir, una API que utiliza verbos HTTP para comunicar al cliente y al servidor.
+
+![API REST](assets/readme/api-rest.jpg)
+
+Esta API REST se desplegará sobre una base de datos no relacional [MongoDB](https://www.mongodb.com/es) en la nube en una máquina virtual Ubuntu Server 18.04.1 LTS.
+
+## Arquitectura
+
+Apolo está desarrollado en [Python3](https://www.python.org/) y utiliza una arquitectura basada en microservicios para facilitar su escalabilidad y aumentar su mantenibilidad.
+
+* Un microservicio para registrar nuevos usuarios.
+* Un microservicio para comprobar que un usuario existe.
+* Un microservicio para atender las búsquedas de los usuarios.
+* Un microservicio para borrar un usuario de la base de datos.
+
+### Comunicación
+
+Para comunicar estos microservicios se hará uso de un broker o cola de mensajería. Concretamente se usará [pika](https://pypi.org/project/pika/), la implementación en Python de [RabbitMQ](https://www.rabbitmq.com/).
+
+## Planificación
+
+* [x] [Hito 0](https://github.com/gomezportillo/apolo/milestone/4): Crear el repositorio del proyecto y hacer fork del repositorio de la asignatura
+* [x] [Hito 1](https://github.com/gomezportillo/apolo/milestone/1): Crear página web con la definición de la arquitectura
+* [ ] [Hito 2](https://github.com/gomezportillo/apolo/milestone/2): Crear un microservicio y desplegarlo en Heroku
+* [ ] [Hito 3](https://github.com/gomezportillo/apolo/milestone/3): Provisionamiento con Ansible
+* [ ] [Hito 4](https://github.com/gomezportillo/apolo/milestone/5): Orquestación
+* [ ] [Hito 5](https://github.com/gomezportillo/apolo/milestone/6): Composición
+
+## Despliegue
 
 Aplicación desplegada en Heroku: [https://apolo-cc.herokuapp.com/](https://apolo-cc.herokuapp.com/).
 
-## Funcionalidad implantada hasta el momento
 
-Funcionalidad básica en la que al enviarle una palabra en la URL te la devuelve en mayúsculas o minúsuclas, dependiendo de la ruta.
-
-```https://apolo-cc.herokuapp.com/upper?word=cloudcomputing``` devolverá ```CLOUDCOMPUTING```
-
-```https://apolo-cc.herokuapp.com/lower?word=CLOUDCOMPUTING``` devolverá ```cloudcomputing```
+https://github.com/AGM-GR/CloudComputing

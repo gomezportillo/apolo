@@ -21,11 +21,14 @@ Además, los usuarios podrán programar alertas para ser notificado cuando un nu
 
 ## Arquitectura
 
-Apolo está desarrollado en [Python3](https://www.python.org/) y utiliza una arquitectura basada en microservicios para facilitar su escalabilidad y aumentar su mantenibilidad.
+Apolo está desarrollado en [Python3](https://www.python.org/) y utiliza una arquitectura basada en microservicios para facilitar su escalabilidad y aumentar su mantenibilidad, que serán desplegados en la nube en una máquina virtual Ubuntu Server 18.04.1 LTS.
 
-* Un microservicio para registrar nuevos usuarios.
+* Un microservicio para añadir nuevos usuarios.
+* Un mciroservicio para comprobar que un usuario existe.
 * Un microservicio para atender las búsquedas de los usuarios.
 * Un miocroservicio para gestionar las alertas que los usuarios creen.
+
+Estos microservicios se intercomunicarán a través de colas de mensajes. En concreto usará la librería [pika](https://pypi.org/project/pika/), la implementación propia de Python.
 
 Además, se plantea la posibilidad de crear nuevos microservicios según avance el proyecto que atiendan nuevas necesidades.
 
