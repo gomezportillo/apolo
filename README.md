@@ -4,11 +4,11 @@
 
 ## Descripción del problema
 
-Cada vez es más común que la gente aprenda a tocar instrumentos y toque en bandas, pero es dificil encontrar personas con tu misma educación musical y gustos con los que poder quedar para ensayar.
+Hoy en día cada vez es más común que las personas aprendan a tocar instrumentos y ensayen en bandas, pero es dificil encontrar personas con tu misma educación musical y gustos con los que poder quedar para ensayar.
 
 ## Solución propuesta
 
-**Apolo** nace como una plataforma para poner en contacto a personas que busquen compañeros para compartir su afición a la música.
+**Apolo** nace como una plataforma para poner en contacto a personas que busquen compañeros con intereses similares para compartir su afición a la música.
 
 ## Definición del proyecto
 
@@ -45,6 +45,3 @@ Para comunicar estos microservicios se hará uso de un broker o cola de mensajer
 ## Despliegue
 
 Aplicación desplegada en Heroku: [https://apolo-cc.herokuapp.com/](https://apolo-cc.herokuapp.com/).
-
-
-https://github.com/AGM-GR/CloudComputing
