@@ -18,7 +18,7 @@ Para conseguir enviar infirmación, **Apolo** usará una [API REST](https://bbva
 
 ![API REST](assets/readme/api-rest.jpg)
 
-Esta API REST se desplegará sobre una base de datos no relacional [MongoDB](https://www.mongodb.com/es) en la nube en una máquina virtual Ubuntu Server 18.04.1 LTS.
+Esta API REST trabajará sobre una base de datos no relacional [MongoDB](https://www.mongodb.com/es) que estará almacenada en el servicio [mongoLab](https://mlab.com).
 
 ## Arquitectura
 

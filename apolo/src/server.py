@@ -5,14 +5,15 @@ import json
 import pymongo
 
 app = Flask(__name__)
+MONGODB_URI = 'mongodb://user:user123@ds024548.mlab.com:24548/apolo-mongodb'
+mongo_client = pymongo.MongoClient(MONGODB_URI)
 
 @app.route('/')
 def index():
     data = {}
     data['status'] = 'OK'
     data['ruta'] = request.url
-    json_data = json.dumps(data)
-    return json_data
+    return json.dumps(data)
 
 @app.route('/about')
 def about():
@@ -21,21 +22,35 @@ def about():
     data['author'] = 'Pedro Manuel Gomez-Portillo López'
     return json.dumps(data)
 
-@app.route('/upper')
-def toUpper():
-    word = request.args.get('word')
-    data = {}
-    data['status'] = 'OK'
-    data['word'] = str(word).upper()
-    return json.dumps(data)
+@app.route('/add')
+def add():
+    user = str(request.args.get('user'))
+    instrument = str(request.args.get('instrument'))
 
-@app.route('/lower')
-def toLower():
-    word = request.args.get('word')
+    if user == '':
+        user = 'jhon doe'
+    if instrument == '':
+        instrument = 'triangle'
+
     data = {}
-    data['status'] = 'OK'
-    data['word'] = str(word).lower()
-    return json.dumps(data)
+    data['user'] = user
+    data['instrument'] = instrument
+
+    apolo_ddbb = mongo_client['apolo']
+    apolo_ddbb['users'].insert(data)
+
+    return 'Suscesfully inserted ' + json.dumps(data)
+
+@app.route('/readall')
+def readall():
+    apolo_ddbb = mongo_client['apolo']
+    result = apolo_ddbb['users'].find()
+    print ("=========================================")
+    for doc in result:
+        print (doc)
+    print ("=========================================")
+    return json.dumps(result)
+
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
