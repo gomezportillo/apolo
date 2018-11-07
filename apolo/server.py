@@ -3,7 +3,9 @@ from flask import Flask
 from flask import request
 import json
 import pymongo
+
 from model import user
+from model import dbuser
 
 app = Flask(__name__)
 MONGODB_URI = 'mongodb://user:user123@ds024548.mlab.com:24548/apolo-mongodb'
@@ -24,7 +26,7 @@ def about():
     data['author'] = 'Pedro Manuel Gomez-Portillo López'
     return json.dumps(data)
 
-@app.route('/add')
+@app.route('/insert')
 def add():
     email = str(request.args.get('email'))
     instrument = str(request.args.get('instrument'))
