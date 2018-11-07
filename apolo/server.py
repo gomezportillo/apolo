@@ -102,11 +102,20 @@ def find():
     result = {}
     result['status'] = status
     result['message'] = 'On find user ' + json.dumps(user.toDict())
-    
+
     resp = jsonify(result)
     resp.status_code = 200
     return resp
 
+@app.errorhandler(404)
+def not_found():
+    msg = {}
+    msg['status'] = 404
+    msg['message'] = 'URL {} not found'.format(request.url)
+
+    resp = jsonify(msg)
+    resp.status_code = 404
+    return resp
 
 def parse_arguments_to_user(args):
     email = str(request.args.get('email'))
