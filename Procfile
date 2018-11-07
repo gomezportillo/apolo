@@ -1,1 +1,1 @@
-web: python3 apolo/src/server.py
+web: python3 apolo/server.py

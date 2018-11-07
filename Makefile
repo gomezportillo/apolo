@@ -4,7 +4,7 @@ PIP 	 := pip3
 all: run
 
 run:
-	$(PYTHON) apolo/src/server.py
+	$(PYTHON) apolo/server.py
 
 install:
 	$(PIP) install -r requirements.txt
