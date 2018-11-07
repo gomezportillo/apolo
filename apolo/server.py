@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from flask import request
+from flask import jsonify
 import json
 import pymongo
 
@@ -22,14 +23,18 @@ def index():
     data = {}
     data['status'] = 'OK'
     data['ruta'] = request.url
-    return json.dumps(data)
+    resp = jsonify(data)
+    resp.status_code = 200
+    return resp
 
 @app.route('/about')
 def about():
     data = {}
     data['status'] = 'OK'
-    data['author'] = 'Pedro Manuel Gomez-Portillo López'
-    return json.dumps(data)
+    data['author'] = 'Pedro Manuel Gomez-Portillo Lopez'
+    resp = jsonify(data)
+    resp.status_code = 200
+    return resp
 
 @app.route('/insert')
 def insert():
@@ -39,7 +44,10 @@ def insert():
     result = {}
     result['status'] = status
     result['message'] = 'On adding user with email {} '.format(new_user.email)
-    return json.dumps(result)
+
+    resp = jsonify(result)
+    resp.status_code = 200
+    return resp
 
 @app.route('/update')
 def update():
@@ -49,7 +57,10 @@ def update():
     result = {}
     result['status'] = status
     result['message'] = 'On updating user with email {} '.format(user.email)
-    return json.dumps(result)
+
+    resp = jsonify(result)
+    resp.status_code = 200
+    return resp
 
 @app.route('/delete')
 def delete():
@@ -59,12 +70,17 @@ def delete():
     result = {}
     result['status'] = status
     result['message'] = 'On deleting user with email {} '.format(user.email)
-    return json.dumps(result)
+
+    resp = jsonify(result)
+    resp.status_code = 200
+    return resp
 
 @app.route('/readall')
 def readall():
     users = daouser.readAll()
-    return json.dumps(users)
+    resp = jsonify(users)
+    resp.status_code = 200
+    return resp
 
 @app.route('/find')
 def find():
@@ -86,7 +102,10 @@ def find():
     result = {}
     result['status'] = status
     result['message'] = 'On find user ' + json.dumps(user.toDict())
-    return json.dumps(result)
+    
+    resp = jsonify(result)
+    resp.status_code = 200
+    return resp
 
 
 def parse_arguments_to_user(args):
