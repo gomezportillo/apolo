@@ -9,3 +9,6 @@ class User:
         dict['email'] = self.email
         dict['instrument'] = self.instrument
         return dict
+
+    def empty(self):
+        return (self.email == '' and self.instrument == '')

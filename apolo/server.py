@@ -66,6 +66,29 @@ def readall():
     users = daouser.readAll()
     return json.dumps(users)
 
+@app.route('/find')
+def find():
+    email = str(request.args.get('email'))
+    instrument = str(request.args.get('instrument'))
+
+    if email == 'None':
+        email = ''
+    if instrument == 'None':
+        instrument = ''
+
+    user = User(email, instrument)
+
+    if user.empty():
+        status = 'USER_EMPTY'
+    else:
+        status = daouser.find(user)
+
+    result = {}
+    result['status'] = status
+    result['message'] = 'On find user ' + json.dumps(user.toDict())
+    return json.dumps(result)
+
+
 def parse_arguments_to_user(args):
     email = str(request.args.get('email'))
     instrument = str(request.args.get('instrument'))

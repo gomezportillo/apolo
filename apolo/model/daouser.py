@@ -57,6 +57,24 @@ class DAOUser:
 
         return 'SUCCESS'
 
+    def find(self, user):
+        criteria = {}
+        if user.email != '':
+            criteria['email'] = user.email
+        if user.instrument != '':
+            criteria['instrument'] = user.instrument
+
+        cursor = self.collection.find( criteria )
+
+        found_users = {}
+        for doc in cursor:
+            try:
+                found_users[ doc['email'] ] = doc['instrument']
+            except KeyError:
+                pass
+
+        return found_users
+
 
     def set_up_ddbb(self):
         # setting up a primary key, or index in mongodb
