@@ -3,6 +3,7 @@ from flask import Flask
 from flask import request
 import json
 import pymongo
+from model import user
 
 app = Flask(__name__)
 MONGODB_URI = 'mongodb://user:user123@ds024548.mlab.com:24548/apolo-mongodb'
