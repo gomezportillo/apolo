@@ -51,6 +51,16 @@ def update():
     result['message'] = 'On updating user with email {} '.format(user.email)
     return json.dumps(result)
 
+@app.route('/delete')
+def delete():
+    user = parse_arguments_to_user( request.args )
+    status = daouser.delete(user)
+
+    result = {}
+    result['status'] = status
+    result['message'] = 'On deleting user with email {} '.format(user.email)
+    return json.dumps(result)
+
 @app.route('/readall')
 def readall():
     users = daouser.readAll()
