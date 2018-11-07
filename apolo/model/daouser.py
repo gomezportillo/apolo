@@ -17,6 +17,17 @@ class DAOUser:
 
         return 'SUCCESS'
 
+    def update(self, user):
+        criteria = {'email' : user.email}
+        changes = {'$set': {'instrument' : user.instrument}}
+
+        try:
+            self.collection.update(criteria, changes)
+        except:
+            return 'ERROR'
+
+        return 'SUCCESS'
+
     def readAll(self):
         cursor = self.collection.find()
 

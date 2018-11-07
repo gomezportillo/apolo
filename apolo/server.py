@@ -32,7 +32,31 @@ def about():
     return json.dumps(data)
 
 @app.route('/insert')
-def add():
+def insert():
+    new_user = parse_arguments_to_user( request.args )
+    status = daouser.insert(new_user)
+
+    result = {}
+    result['status'] = status
+    result['message'] = 'On adding user with email {} '.format(new_user.email)
+    return json.dumps(result)
+
+@app.route('/update')
+def update():
+    user = parse_arguments_to_user( request.args )
+    status = daouser.update(user)
+
+    result = {}
+    result['status'] = status
+    result['message'] = 'On updating user with email {} '.format(user.email)
+    return json.dumps(result)
+
+@app.route('/readall')
+def readall():
+    users = daouser.readAll()
+    return json.dumps(users)
+
+def parse_arguments_to_user(args):
     email = str(request.args.get('email'))
     instrument = str(request.args.get('instrument'))
 
@@ -41,19 +65,7 @@ def add():
     if instrument == 'None':
         instrument = 'triangle'
 
-    new_user = User(email, instrument)
-    status = daouser.insert(new_user)
-
-    result = {}
-    result['status'] = status
-    result['message'] = 'On adding user with email {} '.format(email)
-    return json.dumps(result)
-
-@app.route('/readall')
-def readall():
-    users = daouser.readAll()
-    return json.dumps(users)
-
+    return User(email, instrument)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
