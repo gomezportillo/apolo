@@ -7,6 +7,7 @@ import pymongo
 app = Flask(__name__)
 MONGODB_URI = 'mongodb://user:user123@ds024548.mlab.com:24548/apolo-mongodb'
 mongo_client = pymongo.MongoClient(MONGODB_URI)
+apolo_ddbb = mongo_client.get_default_database() # as im using a sadxbox mlab account
 
 @app.route('/')
 def index():
@@ -27,19 +28,22 @@ def add():
     user = str(request.args.get('user'))
     instrument = str(request.args.get('instrument'))
 
-    if user == '':
+    if user == 'None':
         user = 'jhon doe'
-    if instrument == '':
+    if instrument == 'None':
         instrument = 'triangle'
 
-    data = {}
-    data['user'] = user
-    data['instrument'] = instrument
+    new_user = {}
+    new_user['user'] = user
+    new_user['instrument'] = instrument
 
-    apolo_ddbb = mongo_client['apolo']
-    apolo_ddbb['users'].insert(data)
+    users_collection = apolo_ddbb['users']
+    users_collection.insert(new_user)
 
-    return 'Suscesfully inserted ' + json.dumps(data)
+    result = {}
+    result['status'] = 'OK'
+    result['message'] = 'User {} added successfully'.format(user)
+    return json.dumps(result)
 
 @app.route('/readall')
 def readall():
