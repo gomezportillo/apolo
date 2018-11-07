@@ -25,16 +25,16 @@ def about():
 
 @app.route('/add')
 def add():
-    user = str(request.args.get('user'))
+    email = str(request.args.get('email'))
     instrument = str(request.args.get('instrument'))
 
-    if user == 'None':
-        user = 'jhon doe'
+    if email == 'None':
+        email = 'jhon@doe.com'
     if instrument == 'None':
         instrument = 'triangle'
 
     new_user = {}
-    new_user['user'] = user
+    new_user['email'] = email
     new_user['instrument'] = instrument
 
     users_collection = apolo_ddbb['users']
@@ -42,18 +42,22 @@ def add():
 
     result = {}
     result['status'] = 'OK'
-    result['message'] = 'User {} added successfully'.format(user)
+    result['message'] = 'User with email {} added successfully'.format(email)
     return json.dumps(result)
 
 @app.route('/readall')
 def readall():
-    apolo_ddbb = mongo_client['apolo']
-    result = apolo_ddbb['users'].find()
-    print ("=========================================")
-    for doc in result:
-        print (doc)
-    print ("=========================================")
-    return json.dumps(result)
+    users_collection = apolo_ddbb['users']
+    cursor = users_collection.find()
+
+    users = {}
+    for doc in cursor:
+        try:
+            users[ doc['email'] ] = doc['instrument']
+        except KeyError:
+            pass
+
+    return json.dumps(users)
 
 
 if __name__ == '__main__':
