@@ -22,7 +22,7 @@ COLLECTION_NAME = 'users'
 # DAO user
 daouser = DAOUser(MONGODB_URI, COLLECTION_NAME)
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
     data = {}
     data['status'] = 'OK'
@@ -31,7 +31,7 @@ def index():
     resp.status_code = 200
     return resp
 
-@app.route('/about')
+@app.route('/about', methods=['GET'])
 def about():
     data = {}
     data['status'] = 'OK'
@@ -40,9 +40,9 @@ def about():
     resp.status_code = 200
     return resp
 
-@app.route('/insert')
+@app.route('/insert', methods=['PUT'])
 def insert():
-    new_user = parse_arguments_to_user( request.args )
+    new_user = parse_arguments_to_user( request.form )
     status = daouser.insert(new_user)
 
     result = {}
@@ -53,9 +53,9 @@ def insert():
     resp.status_code = 200
     return resp
 
-@app.route('/update')
+@app.route('/update', methods=['POST'])
 def update():
-    user = parse_arguments_to_user( request.args )
+    user = parse_arguments_to_user( request.form )
     status = daouser.update(user)
 
     result = {}
@@ -66,9 +66,9 @@ def update():
     resp.status_code = 200
     return resp
 
-@app.route('/delete')
+@app.route('/delete', methods=['DELETE'])
 def delete():
-    user = parse_arguments_to_user( request.args )
+    user = parse_arguments_to_user( request.form )
     status = daouser.delete(user)
 
     result = {}
@@ -86,10 +86,10 @@ def readall():
     resp.status_code = 200
     return resp
 
-@app.route('/find')
+@app.route('/find',  methods=['GET'])
 def find():
-    email = str(request.args.get('email'))
-    instrument = str(request.args.get('instrument'))
+    email = str(request.form['email'])
+    instrument = str(request.form['instrument'])
 
     if email == 'None':
         email = ''
@@ -98,14 +98,30 @@ def find():
 
     user = User(email, instrument)
 
+    status = 'SUCCESS'
     if user.empty():
         status = 'USER_EMPTY'
     else:
-        status = daouser.find(user)
+        users = daouser.find(user)
+
+    users_json = ''
+    for u in users:
+        users_json += u
+    result = {}
+    result['status'] = status
+    result['message'] = users
+
+    resp = jsonify(result)
+    resp.status_code = 200
+    return resp
+
+@app.route('/deleteAll', methods=['DELETE'])
+def deleteAll():
+    status = daouser.deleteAll()
 
     result = {}
     result['status'] = status
-    result['message'] = 'On find user ' + json.dumps(user.toDict())
+    result['message'] = 'On deleting all users'
 
     resp = jsonify(result)
     resp.status_code = 200
@@ -121,9 +137,19 @@ def not_found(error=None):
     resp.status_code = 404
     return resp
 
-def parse_arguments_to_user(args):
-    email = str(request.args.get('email'))
-    instrument = str(request.args.get('instrument'))
+@app.errorhandler(405)
+def not_allowed(error=None):
+    msg = {}
+    msg['status'] = 405
+    msg['message'] = 'URL {} not allowed from {} HTTP method'.format(request.url, request.method)
+
+    resp = jsonify(msg)
+    resp.status_code = 405
+    return resp
+
+def parse_arguments_to_user(form):
+    email = str(request.form['email'])
+    instrument = str(request.form['instrument'])
 
     if email == 'None':
         email = 'jhon@doe.com'

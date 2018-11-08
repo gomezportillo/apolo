@@ -58,7 +58,12 @@ class DAOUser:
         return 'SUCCESS'
 
     def deleteAll(self):
-        self.collection.drop()
+        try:
+            self.collection.drop()
+        except:
+            return 'ERROR'
+
+        return 'SUCCESS'
 
     def find(self, user):
         criteria = {}
