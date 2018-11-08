@@ -2,6 +2,9 @@
 
 [Página web del proyecto](https://gomezportillo.github.io/apolo/).
 
+## Build status
+[![Build Status](https://travis-ci.org/gomezportillo/apolo.svg?branch=master)](https://travis-ci.org/gomezportillo/apolo)
+
 ## Descripción del problema
 
 Hoy en día cada vez es más común que las personas aprendan a tocar instrumentos y ensayen en bandas, pero es dificil encontrar personas con tu misma educación musical y gustos con los que poder quedar para ensayar.
