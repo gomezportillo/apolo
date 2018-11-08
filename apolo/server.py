@@ -2,6 +2,9 @@ import os
 from flask import Flask
 from flask import request
 from flask import jsonify
+from flask_restful import Resource
+from flask_restful import Api
+
 import json
 import pymongo
 
@@ -10,6 +13,7 @@ from model.daouser import DAOUser
 
 # App definition
 app = Flask(__name__)
+api = Api(app)
 
 # MongoDB configuration
 MONGODB_URI = 'mongodb://user:user123@ds024548.mlab.com:24548/apolo-mongodb'
@@ -108,7 +112,7 @@ def find():
     return resp
 
 @app.errorhandler(404)
-def not_found():
+def not_found(error=None):
     msg = {}
     msg['status'] = 404
     msg['message'] = 'URL {} not found'.format(request.url)
