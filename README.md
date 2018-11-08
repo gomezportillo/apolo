@@ -27,7 +27,7 @@
 # Build status
 [![Build Status](https://travis-ci.org/gomezportillo/apolo.svg?branch=master)](https://travis-ci.org/gomezportillo/apolo)
 
-
+Para más información acerca de los tests ir a la sección [Testing en Travis-CI](#testing-en-travis-ci).
 
 # Descripción del problema
 
@@ -64,6 +64,8 @@ Tras esta definición es fácil ver que surge la necesidad de comunicar unos mic
 
 # Planificación
 
+Cada hito tiene un link a su página en GitHub.
+
 * [x] [Hito 0](https://github.com/gomezportillo/apolo/milestone/4): Crear el repositorio del proyecto y hacer fork del repositorio de la asignatura.
 * [x] [Hito 1](https://github.com/gomezportillo/apolo/milestone/1): Crear página web con la definición de la arquitectura.
 * [x] [Hito 2](https://github.com/gomezportillo/apolo/milestone/2): Crear un microservicio y desplegarlo en Travis y Heroku automáticamente tras pasar los tests.
@@ -73,27 +75,47 @@ Tras esta definición es fácil ver que surge la necesidad de comunicar unos mic
 
 # Despliegue
 
-## Despliegue en Travis-CI
+Para conseguir el efecto **Gran botón rojo** del que hablamos en teoría (poder desplegar totalmente una aplicación al darle a un solo botón) he creado una pipeline de trabajo en la que tras hacer un push a la rama master, el proyecto es testeado en Travis-CI de donde, solo tras pasar los test, es desplegado automáticamente en Heroku.
 
-El archivo de configuración de Travis-CI puede verse [aquí](.travis.yml) y los tests del DAO del usuario [aquí](apolo/test_daouser.py) y los de servior [aquí](apolo/test_server.py).
+![Despliegue](assets/readme/deploy.jpg)
+
+Para conseguir la integración con Travis-CI y Heroku, tras añadir el proyecto en ambos sitios, fue necesario generar en el archivo de configuración de Travis-CI un token de autenficaición de Heroku encriptado con Travis-CI con el comando ```travis encrypt $(heroku auth:token) --add deploy.api_key```, y tras esto activar dicha opción en la página de Heroku.
+
+![Configuración en Heroku](assets/readme/heroku-config.jpg)
+
+## Testing en Travis-CI
+
+El archivo de configuración de Travis-CI puede verse [aquí](.travis.yml) y los tests,
+
+* Del DAO del usuario, [aquí](apolo/test_daouser.py).
+* Del servior, [aquí](apolo/test_server.py).
+
+Dicho archivo de configuración contiene la rama que será testeada, el lenguaje de programación y su versión, las dependencias del proyecto (guardadas en el archivo [requirements.txt](requirements.txt)), la ruta hacia los tests a ejecutar y la información necesaria para desplegar la aplicación en Heroku una vez pasados los tests.
 
 ## Despliegue en Heroku
 
-Aplicación desplegada en Heroku: [https://apolo-cc.herokuapp.com/](https://apolo-cc.herokuapp.com/).
+Heroku ha sido elegido como el PaaS a usar principalmente por ofrecer un amplio servicio así como su documentación de manera gratuita.
 
+Para configurarlo han sido necesarios varios archivos,
+
+* [Procfile](Procfile). En este archivo se especifica el tipo de dyons así como el comando que necesita Heroku para desplegar el proyecto.
+* [runtime.txt](runtime.txt). En este archivo se espeficica la versión del lenguaje de programación que usa el proyecto.
+* [requirements.txt](requirements.txt). Este archivo es compartido con Travis-CI y especifica las dependencias del proyecto. Ambos sitios las instalan ejecutando ```pip install -r requirements.txt```.
+
+Por otro lado, aunque se recomienda la utilización de un WSGI (Web Server Gateway Interface) como ```gunicorn``` (o ```waitress``` en Windows) por sus diversas ventajas y un proxy de buffering reverso como ```Nginx``` a la hora de desplegar el servidor, para un proyecto tan pequeño de momento se ha considerado que no es necesario, aunque en un futuro esto pueda cambiar.
 
 # Funcionalidad implementada hasta la fecha
 
-Actualmente atiende las siguientes peticiones HTTP con los parámetros {'email': $NOMBRE, 'instrument': $INSTRUMENT} y devuelve las respuestas en formato JSON. Además, ofrece un manejo de las excepciones 404 y 405  de HTTP e indica a través del código 200 que todo ha ido correctamente.
+Actualmente **Apolo** atiende las siguientes peticiones HTTP con los parámetros ```{'email': $CORREO, 'instrument': $INSTRUMENTO}``` y devuelve las respuestas en formato JSON. Además, ofrece un manejo de las excepciones ```404``` y ```405```  de HTTP e indica a través del código ```200``` que todo ha ido correctamente.
 
-* **PUT** en _/users_ guarda en la base de datos el usuario especificado en parámetros.
-* **POST** en _/users_ actualiza el usuario indicado.
-* **GET** en _/users_ obtiene el usuario indicado.
-* **DELETE** en _/users_ borra el usuario indicado.
+* **PUT** en _/users_ guarda en la base de datos el usuario especificado en los parámetros.
+* **POST** en _/users_ actualiza el usuario indicado en los parámetros.
+* **GET** en _/users_ obtiene el usuario indicado a través de los parámetros.
+* **DELETE** en _/users_ borra el usuario indicado en los parámetros.
 * **GET** en _/readAll_ devuelve todos los usuario del sistema.
 * **DELETE** en _/deleteAll_ elimina todos los usuarios del sistema.
 
-Esto puede verse más claramente en los [test al servidor](apolo/test_server.py) o en el [propio servidor](apolo/server.py).
+Esto puede verse con más profundidad en el [propio servidor](apolo/server.py).
 
 ## Ejemplo de ejecución prático
 
