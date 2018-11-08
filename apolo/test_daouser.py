@@ -5,7 +5,7 @@ from model.user import User
 MONGODB_URI = 'mongodb://user:user123@ds024548.mlab.com:24548/apolo-mongodb'
 COLLECTION_NAME = 'test'
 
-class TestMyServer(unittest.TestCase):
+class Test(unittest.TestCase):
 
     @classmethod
     def setUpClass(self):
@@ -25,7 +25,7 @@ class TestMyServer(unittest.TestCase):
     def test_insert(self):
         self.daouser.deleteAll()
 
-        u = User("insert user", "guitar")
+        u = User("insert@user", "guitar")
         self.daouser.insert(u)
         result = self.daouser.readAll()
         self.assertEqual(1, len(result))
@@ -33,7 +33,7 @@ class TestMyServer(unittest.TestCase):
     def test_delete(self):
         self.daouser.deleteAll()
 
-        u = User("delete user", "guitar")
+        u = User("delete@user", "guitar")
         self.daouser.insert(u)
         resp = self.daouser.delete(u)
         result = self.daouser.readAll()
@@ -42,7 +42,7 @@ class TestMyServer(unittest.TestCase):
     def test_find(self):
         self.daouser.deleteAll()
 
-        u = User("find user", "guitar")
+        u = User("find@user", "guitar")
         self.daouser.insert(u)
         result = self.daouser.find(u)
         self.assertEqual(u.toDict(), result)
@@ -50,12 +50,12 @@ class TestMyServer(unittest.TestCase):
     def test_update(self):
         self.daouser.deleteAll()
 
-        u1 = User("update", "guitar")
+        u1 = User("update@user", "guitar")
         self.daouser.insert(u1)
         u1.instrument = "bass"
         self.daouser.update(u1)
 
-        u2 = User(u1.email, "")        
+        u2 = User(u1.email, "")
         result = self.daouser.find(u2)
 
         self.assertEqual(u1.toDict(), result)
