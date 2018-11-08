@@ -5,7 +5,7 @@ from model.user import User
 MONGODB_URI = 'mongodb://user:user123@ds024548.mlab.com:24548/apolo-mongodb'
 COLLECTION_NAME = 'test'
 
-class Test(unittest.TestCase):
+class TestDAO(unittest.TestCase):
 
     @classmethod
     def setUpClass(self):

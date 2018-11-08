@@ -2,7 +2,7 @@ import unittest
 import requests
 import json
 
-class Test2(unittest.TestCase):
+class TestServer(unittest.TestCase):
 
     @classmethod
     def setUpClass(self):
@@ -86,6 +86,9 @@ class Test2(unittest.TestCase):
 
         requests.delete('http://localhost:5000/deleteAll')
 
+    def test_readall_is_up(self):
+        response = requests.get('http://localhost:5000/readAll')
+        self.assertEqual(response.status_code, 200)
 
 if __name__ == '__main__':
     unittest.main()
