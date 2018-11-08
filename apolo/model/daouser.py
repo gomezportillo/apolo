@@ -8,14 +8,14 @@ class DAOUser:
 
     def __init__(self, MONGODB_URI, COLLECTION_NAME):
         self.mongo_client = pymongo.MongoClient(MONGODB_URI)
-        self.apolo_ddbb = self.mongo_client.get_default_database() # as im using a sadxbox mlab account
+        self.apolo_ddbb = self.mongo_client.get_database() # default ddbb as im using a sadxbox mlab account
         self.collection = self.apolo_ddbb[COLLECTION_NAME]
 
         self.set_up_ddbb()
 
     def insert(self, user):
         try:
-            result = self.collection.insert(user.toDict())
+            result = self.collection.insert_one(user.toDict())
         except pymongo.errors.DuplicateKeyError:
             return 'EMAIL_ALREADY_EXISTS'
         except:
@@ -27,7 +27,7 @@ class DAOUser:
         changes = {'$set': {'instrument' : user.instrument}}
 
         try:
-            result = self.collection.update(criteria, changes)
+            result = self.collection.update_one(criteria, changes)
             if result['updatedExisting']:
                 return 'SUCCESS'
             else:
@@ -57,6 +57,9 @@ class DAOUser:
 
         return 'SUCCESS'
 
+    def deleteAll(self):
+        self.collection.drop()
+
     def find(self, user):
         criteria = {}
         if user.email != '':
@@ -69,7 +72,8 @@ class DAOUser:
         found_users = {}
         for doc in cursor:
             try:
-                found_users[ doc['email'] ] = doc['instrument']
+                found_users['email'] = doc['email']
+                found_users['instrument'] = doc['instrument']
             except KeyError:
                 pass
 

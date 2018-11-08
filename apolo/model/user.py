@@ -12,3 +12,8 @@ class User:
 
     def empty(self):
         return (self.email == '' and self.instrument == '')
+
+    def __eq__(self, other):
+        if isinstance(other, User):
+            return self.email == other.email and self.instrument == other.instrument
+        return False
