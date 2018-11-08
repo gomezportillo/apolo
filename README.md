@@ -40,7 +40,7 @@ Para comunicar estos microservicios se hará uso de un broker o cola de mensajer
 
 * [x] [Hito 0](https://github.com/gomezportillo/apolo/milestone/4): Crear el repositorio del proyecto y hacer fork del repositorio de la asignatura
 * [x] [Hito 1](https://github.com/gomezportillo/apolo/milestone/1): Crear página web con la definición de la arquitectura
-* [ ] [Hito 2](https://github.com/gomezportillo/apolo/milestone/2): Crear un microservicio y desplegarlo en Heroku
+* [x] [Hito 2](https://github.com/gomezportillo/apolo/milestone/2): Crear un microservicio y desplegarlo en Heroku
 * [ ] [Hito 3](https://github.com/gomezportillo/apolo/milestone/3): Provisionamiento con Ansible
 * [ ] [Hito 4](https://github.com/gomezportillo/apolo/milestone/5): Orquestación
 * [ ] [Hito 5](https://github.com/gomezportillo/apolo/milestone/6): Composición
