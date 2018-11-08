@@ -40,7 +40,7 @@ def about():
     resp.status_code = 200
     return resp
 
-@app.route('/insert', methods=['PUT'])
+@app.route('/users', methods=['PUT'])
 def insert():
     new_user = parse_arguments_to_user( request.form )
     status = daouser.insert(new_user)
@@ -53,7 +53,7 @@ def insert():
     resp.status_code = 200
     return resp
 
-@app.route('/update', methods=['POST'])
+@app.route('/users', methods=['POST'])
 def update():
     user = parse_arguments_to_user( request.form )
     status = daouser.update(user)
@@ -66,7 +66,7 @@ def update():
     resp.status_code = 200
     return resp
 
-@app.route('/delete', methods=['DELETE'])
+@app.route('/users', methods=['DELETE'])
 def delete():
     user = parse_arguments_to_user( request.form )
     status = daouser.delete(user)
@@ -79,14 +79,7 @@ def delete():
     resp.status_code = 200
     return resp
 
-@app.route('/readall')
-def readall():
-    users = daouser.readAll()
-    resp = jsonify(users)
-    resp.status_code = 200
-    return resp
-
-@app.route('/find',  methods=['GET'])
+@app.route('/users',  methods=['GET'])
 def find():
     email = str(request.form['email'])
     instrument = str(request.form['instrument'])
@@ -112,6 +105,13 @@ def find():
     result['message'] = users
 
     resp = jsonify(result)
+    resp.status_code = 200
+    return resp
+
+@app.route('/readAll', methods=['GET'])
+def readall():
+    users = daouser.readAll()
+    resp = jsonify(users)
     resp.status_code = 200
     return resp
 
