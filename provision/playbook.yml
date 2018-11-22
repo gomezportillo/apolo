@@ -1,0 +1,12 @@
+---
+- hosts: all
+  sudo: true
+  tasks:
+  - name: Update cache
+    apt: update_cache=yes
+  - name: Install git
+    apt: pkg=git state=present
+  - name: Install pip
+    apt: pkg=python3-setuptools state=present
+    apt: pkg=python3-dev state=present
+    apt: pkg=python3-pip state=present
