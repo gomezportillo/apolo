@@ -1,5 +1,5 @@
 [azure]
-MV-CC ansible_ssh_port=22 ansible_ssh_host=40.80.144.11
+azure-CC ansible_ssh_port=22 ansible_ssh_host=23.96.18.95
 
 [azure:vars]
 ansible_ssh_user=pedroma
