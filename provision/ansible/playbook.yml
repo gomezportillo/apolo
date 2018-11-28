@@ -1,0 +1,29 @@
+---
+- hosts: all
+  become: yes
+  vars:
+    project_path: ~/apolo
+  tasks:
+    - name: Update repos
+      apt: update_cache=yes
+
+    - name: Install git
+      apt: name=git state=present
+
+    - name: Install python3
+      apt: name=python3 state=present
+
+    - name: Install pip
+      apt: name=pip3 state=present
+
+    - name: Clone apolo repository
+      git:
+        repo: git@github.com:gomezportillo/apolo.git
+        dest: "{{ project_path }}"
+
+      # Install apolo dependencies
+    - pip:
+        requirements: "{{project_path}}/requirements.txt"
+
+    - name: Execute makefile
+      shell: "cd {{ project_path }} && make"

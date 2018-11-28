@@ -1,0 +1,6 @@
+[azure]
+MV-CC ansible_ssh_port=22 ansible_ssh_host=40.80.144.11
+
+[azure:vars]
+ansible_ssh_user=pedroma
+ansible_ssh_private_key_file=~/SSH_APOLO/key
