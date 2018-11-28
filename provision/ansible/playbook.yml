@@ -23,3 +23,6 @@
 
     - name: Installing Python dependecies
       shell: "pip3 install -r {{ project_path }}/requirements.txt"
+
+    - name: Execute server
+      shell: "cd {{ project_path }} && make&"
