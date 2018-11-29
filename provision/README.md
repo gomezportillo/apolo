@@ -10,7 +10,7 @@ Para poder completar este hito se han seguido los siguientes pasos.
 
 Lo primero fue seleccioanr el sistema operativo que correría en la máquina de Azure. A la vista de los resultados del [siguiente artículo](https://www.premper.com/por-que-usamos-servidores-ubuntu), y siendo un sistema que ya conocía, elegí usar **Ubuntu Server 18.04 LTS**, o por su nombre en clave, **Bionic Beaver**. Es importante que sea una LTS ya que necesitamos soporto a largo plazo.
 
-Una vez decidido el sistema operativo, se creó una máquina en Azure con los siguientes parámetros.
+Una vez decidido el sistema operativo, se eligió la máquina más barata de Azure (6,59€/mes) y creó con los siguientes parámetros.
 
 * **Nombre**: bionic
 * **Region**: Europa
@@ -114,3 +114,9 @@ top | grep python3 #para obtener el PID del proceso
 kill $(PID)
 exit
 ```
+
+## Proyecto en ejecución en la máquina Azure
+
+Para comprobar que el proyecto está en ejecución, basta con acceder a http://23.96.18.95 y comprobar que el resultado es parecido a la imagen inferior.
+
+![Proyecto en Azure](img/project_on_azure.jpg)
