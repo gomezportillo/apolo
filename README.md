@@ -1,9 +1,8 @@
 # Proyecto de Cloud Computing
 
 * [Página web del proyecto](https://gomezportillo.github.io/apolo/).
-* [Aplicación desplegada en Heroku](https://apolo-cc.herokuapp.com/).
 
-# URL de desgliegue
+## URLs de desgliegue
 
 * Heroku: https://apolo-cc.herokuapp.com/
 * MV: http://23.96.18.95
@@ -31,6 +30,7 @@
 <!-- /TOC -->
 
 # Build status
+
 [![Build Status](https://travis-ci.org/gomezportillo/apolo.svg?branch=master)](https://travis-ci.org/gomezportillo/apolo)
 
 Para más información acerca de los tests ir a la sección [Testing en Travis-CI](#testing-en-travis-ci).
