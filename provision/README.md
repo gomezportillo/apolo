@@ -6,11 +6,16 @@
 
 Para poder completar este hito se han seguido los siguientes pasos.
 
+## Testing
+
+
+
 ## Tabla de contenidos
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [Provisionamiento con Ansible](#provisionamiento-con-ansible)
+	- [Testing][#testing]
 	- [Tabla de contenidos](#tabla-de-contenidos)
 	- [Configuración de la máquina de Azure](#configuracin-de-la-mquina-de-azure)
 	- [Provisionamiento de la máquina de Azure](#provisionamiento-de-la-mquina-de-azure)
@@ -30,6 +35,7 @@ Una vez decidido el sistema operativo, se eligió la máquina más barata de Azu
 * **S.O**: Ubuntu Server 18.04 LTS
 * **Nombre de usuario**: pedroma
 * **IP**: Estática
+* **Puertos de entrada**: HTTP, HTTPS, RDR, SSH
 
 Para el tipo de autentificación se eligió **SSH**, así que tras crear un par pública/privada de claves (`key.pub` y `key`, respectivamente) con el comando `ssh-keygen` y almacenarlas en la máquina local en `~/SSH_APOLO`, se indicó la clave pública en Azure a la hora de configurar la máquina.
 
