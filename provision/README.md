@@ -32,6 +32,8 @@ con el siguiente resutado.
 
 ## Provisionamiento de la máquina de Azure
 
+Para instalar Ansible con pip basta ejecutar `pip3 install ansible` en local.
+
 Para instalar automáticamente los programas necesarios en la máquina de Azure con Ansible se han escrito tres archivos, `ansible_hosts`, `ansible.cfg` y `playbook.yml`.
 
 * `ansible_hosts` indica la dirección, el puerto y la clave privada que usaremos para acceder a las máquinas remotas. Si quisiéramos provisionar más máquinas bastaría con indicarlas en la sección `[azure]`, aunque todas deban compartir el mismo usuario y clave pública.
