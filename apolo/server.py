@@ -105,14 +105,14 @@ def find():
     resp.status_code = 200
     return resp
 
-@app.route('/readAll', methods=['GET'])
+@app.route('/users/all', methods=['GET'])
 def readall():
     users = daouser.readAll()
     resp = jsonify(users)
     resp.status_code = 200
     return resp
 
-@app.route('/deleteAll', methods=['DELETE'])
+@app.route('/users/all', methods=['DELETE'])
 def deleteAll():
     status = daouser.deleteAll()
 
@@ -156,5 +156,5 @@ def parse_arguments_to_user(form):
     return User(email, instrument)
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 80))
+    port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)

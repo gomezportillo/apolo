@@ -6,11 +6,11 @@ class TestServer(unittest.TestCase):
 
     @classmethod
     def setUpClass(self):
-        requests.delete('http://localhost:5000/deleteAll')
+        requests.delete('http://localhost:5000/users/all')
 
     @classmethod
     def tearDownClass(self):
-        requests.delete('http://localhost:5000/deleteAll')
+        requests.delete('http://localhost:5000/users/all')
 
     def test_index_is_up(self):
         response = requests.get('http://localhost:5000/')
@@ -26,7 +26,7 @@ class TestServer(unittest.TestCase):
         response = requests.put('http://localhost:5000/users', data=user)
         self.assertEqual(response.status_code, 200)
 
-        requests.delete('http://localhost:5000/deleteAll')
+        requests.delete('http://localhost:5000/users/all')
 
     def test_insert(self):
         user={'email':'jhon@doe', 'instrument': 'guitar'}
@@ -34,14 +34,14 @@ class TestServer(unittest.TestCase):
         response_json = response.json()
         self.assertEqual(response_json['status'], 'SUCCESS')
 
-        requests.delete('http://localhost:5000/deleteAll')
+        requests.delete('http://localhost:5000/users/all')
 
     def test_find_is_up(self):
         user={'email':'jhon@doe', 'instrument': 'guitar'}
         response = requests.get('http://localhost:5000/users', data=user)
         self.assertEqual(response.status_code, 200)
 
-        requests.delete('http://localhost:5000/deleteAll')
+        requests.delete('http://localhost:5000/users/all')
 
     def test_find_user(self):
         user={'email':'jhon@doe', 'instrument': 'guitar'}
@@ -51,14 +51,14 @@ class TestServer(unittest.TestCase):
         response_json['message']
         self.assertEqual(user, response_json['message'])
 
-        requests.delete('http://localhost:5000/deleteAll')
+        requests.delete('http://localhost:5000/users/all')
 
     def test_update_is_up(self):
         user={'email':'jhon@doe', 'instrument': 'guitar'}
         response = requests.post('http://localhost:5000/users', data=user)
         self.assertEqual(response.status_code, 200)
 
-        requests.delete('http://localhost:5000/deleteAll')
+        requests.delete('http://localhost:5000/users/all')
 
     def test_update_user(self):
         user={'email':'jhon@doe', 'instrument': 'guitar'}
@@ -69,7 +69,7 @@ class TestServer(unittest.TestCase):
         response_json = response.json()
         self.assertEqual(user, response_json['message'])
 
-        requests.delete('http://localhost:5000/deleteAll')
+        requests.delete('http://localhost:5000/users/all')
 
     def test_delete_is_up(self):
         user={'email':'jhon@doe', 'instrument': 'guitar'}
@@ -84,10 +84,10 @@ class TestServer(unittest.TestCase):
         response_json = response.json()
         self.assertEqual({}, response_json['message'])
 
-        requests.delete('http://localhost:5000/deleteAll')
+        requests.delete('http://localhost:5000/users/all')
 
     def test_readall_is_up(self):
-        response = requests.get('http://localhost:5000/readAll')
+        response = requests.get('http://localhost:5000/users/all')
         self.assertEqual(response.status_code, 200)
 
 if __name__ == '__main__':
