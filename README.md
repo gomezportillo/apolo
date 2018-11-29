@@ -3,7 +3,9 @@
 * [Página web del proyecto](https://gomezportillo.github.io/apolo/).
 * [Aplicación desplegada en Heroku](https://apolo-cc.herokuapp.com/).
 
-Despliegue http://23.96.18.95
+# URL Despliegue de este hito
+
+MV: http://23.96.18.95
 
 ## Tabla de contenidos
 
@@ -115,7 +117,7 @@ Por otro lado, aunque se recomienda la utilización de un WSGI (Web Server Gatew
 
 Para ello, se ha configurado una máquina Ubuntu Server 18.04 LTS en Azure para acceder a ella a través de SSH, subiendo la clave pública y guardando la privada en local, y tras obtener su IP se ha ejecutado Ansible para que instale en ella todos los componentes necesarios.
 
-Una documentación más extensa y detallada de este hito puede verse [en el siguiente enlace](provision/README.md).
+Una documentación más extensa y detallada de este hito puede verse [en el siguiente enlace](provision/).
 
 # Funcionalidad implementada hasta la fecha
 

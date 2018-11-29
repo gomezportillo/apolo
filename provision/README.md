@@ -1,10 +1,23 @@
 # Provisionamiento con Ansible
 
-[Ansible](https://www.ansible.com/) es un sistema que permite el provisionamiento de máquinas remotas fácilmente. La imagen inferior muestra un cróquis de cómo funciona.
+[Ansible](https://www.ansible.com/) es un sistema que permite el provisionamiento de máquinas remotas fácilmente. La imagen inferior muestra un croquis de cómo funciona.
 
 ![Ansible](img/ansible.jpg)
 
 Para poder completar este hito se han seguido los siguientes pasos.
+
+## Tabla de contenidos
+
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [Provisionamiento con Ansible](#provisionamiento-con-ansible)
+	- [Tabla de contenidos](#tabla-de-contenidos)
+	- [Configuración de la máquina de Azure](#configuracin-de-la-mquina-de-azure)
+	- [Provisionamiento de la máquina de Azure](#provisionamiento-de-la-mquina-de-azure)
+	- [Despliegue de Apolo](#despliegue-de-apolo)
+	- [Proyecto en ejecución en la máquina Azure](#proyecto-en-ejecucin-en-la-mquina-azure)
+
+<!-- /TOC -->
 
 ## Configuración de la máquina de Azure
 
@@ -18,12 +31,12 @@ Una vez decidido el sistema operativo, se eligió la máquina más barata de Azu
 * **Nombre de usuario**: pedroma
 * **IP**: Estática
 
-Para el tipo de autentificación se eligio **SSH**, así que tras crear un par pública/privada de claves (`key.pub` y `key`, respectivamente) con el comando `ssh-keygen` y almacenarlas en la máquina local en `~/SSH_APOLO`, se indicó la clave pública en Azure a la hora de configurar la máquina.
+Para el tipo de autentificación se eligió **SSH**, así que tras crear un par pública/privada de claves (`key.pub` y `key`, respectivamente) con el comando `ssh-keygen` y almacenarlas en la máquina local en `~/SSH_APOLO`, se indicó la clave pública en Azure a la hora de configurar la máquina.
 
-Una vez configurada y creada podemos obtener su IP, que en este caso ha sido `40.80.144.11`. Ahora, acceder a ella en cualquier momento es tan facil como ejecutar en local,
+Una vez configurada y creada podemos obtener su IP, que en este caso ha sido `23.96.18.95`. Ahora, acceder a ella en cualquier momento es tan fácil como ejecutar en local,
 
 ```
-ssh -i ~/SSH_APOLO/key pedroma@40.80.144.11
+ssh -i ~/SSH_APOLO/key pedroma@23.96.18.95
 ```
 
 con el siguiente resutado.
@@ -34,7 +47,7 @@ con el siguiente resutado.
 
 Para instalar Ansible con pip basta ejecutar `pip3 install ansible` en local.
 
-Para instalar automáticamente los programas necesarios en la máquina de Azure con Ansible se han escrito tres archivos, `ansible_hosts`, `ansible.cfg` y `playbook.yml`.
+Para instalar automáticamente los programas necesarios en la máquina de Azure con Ansible se han escrito tres archivos, `ansible_hosts`, `ansible.cfg` y `playbook.yml`. Se usa el comando `apt` para instalar los paquetes, por lo que estos scripts deberían funcionar en cualquier sistema que soporte dicho comando.
 
 * `ansible_hosts` indica la dirección, el puerto y la clave privada que usaremos para acceder a las máquinas remotas. Si quisiéramos provisionar más máquinas bastaría con indicarlas en la sección `[azure]`, aunque todas deban compartir el mismo usuario y clave pública.
 
@@ -55,7 +68,7 @@ host_key_checking = False
 inventory = ./ansible_hosts
 ```
 
-* Por último, en `playbook.yml` indicamos a Ansible los pasos que tiene que seguir, en este caso comprobar que git, python3 y pip3 existen (y si no crearlos), clonar el repositorio en `~/apolo` y ejecutar pip3 sobre el archivo `requirements.txt` que se encuentra en su raiz.
+* Por último, en `playbook.yml` indicamos a Ansible los pasos que tiene que seguir, en este caso comprobar que git, python3 y pip3 existen (y si no crearlos), clonar el repositorio en `~/apolo` y ejecutar pip3 sobre el archivo `requirements.txt` que se encuentra en su raíz.
 
 ```yml
 ---
@@ -98,17 +111,17 @@ Inicialmente se intentó incluir el despliegue de Apolo en la máquina de Azure 
 Los comandos para clonar el resositorio se dejaron en Ansible, ya que necesita el repositorio para poder  ejecutar pip3, pero finalmente se ha hecho el despliegue del proyecto en Azure de forma manual con la ejecución de los siguientes comandos en la máquina local.
 
 ```bash
-ssh -i ~/SSH_APOLO/key pedroma@40.80.144.11
+ssh -i ~/SSH_APOLO/key pedroma@23.96.18.95
 git clone https://github.com/gomezportillo/apolo
 cd apolo
-make&
+python3 apolo/server.py&
 exit
 ```
 
 De este modo el proceso de Apolo quedaría ejecutándose indefinidamente. Para pararlo podríamos o bien reiniciar la máquina desde el portal de Azure o ejecutar lo siguiente en local,
 
 ```bash
-ssh -i ~/SSH_APOLO/key pedroma@40.80.144.11
+ssh -i ~/SSH_APOLO/key pedroma@23.96.18.95
 top | grep python3 #para obtener el PID del proceso
 ^C # para parar top
 kill $(PID)
