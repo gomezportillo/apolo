@@ -3,7 +3,7 @@
 * [Página web del proyecto](https://gomezportillo.github.io/apolo/).
 * [Aplicación desplegada en Heroku](https://apolo-cc.herokuapp.com/).
 
-Despliegue https://apolo-cc.herokuapp.com/
+Despliegue http://23.96.18.95
 
 ## Tabla de contenidos
 
