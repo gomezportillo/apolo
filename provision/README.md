@@ -12,20 +12,36 @@ Para poder completar este hito se han seguido los siguientes pasos.
 
 El usuario [xenahort](https://github.com/xenahort) ha comprobado el provisionamiento en una máquina virtual del proyecto [Apolo](https://github.com/gomezportillo/apolo). Para ello se han seguido los pasos indicados [aquí](https://github.com/gomezportillo/apolo/blob/master/provision/README.md) con la única modificación de los datos referentes a la máquina virtual como usuario y dirección ip.
 
-![Provisionamiento](https://github.com/xenahort/proyectoCloudComputing/blob/master/img/apolo2.png)
+![Provisionamiento @xenahort](img/xenahort-prueba1.png)
 
-![Prueba](https://github.com/xenahort/proyectoCloudComputing/blob/master/img/apolo1.png)
+![Prueba @xenahort](img/xenahort-prueba2.png)
 
 ### Testing de otro proyecto
 
-he testeado el proyecto de [@fpeiro](https://github.com/fpeiro) y funciona correctamente.
+He testeado el proyecto de [@fpeiro](https://github.com/fpeiro) siguiendo las instrucciones que indica en su README y funciona correctamente. Se incluye la siguiente captura de pantalla como prueba.
+
+![Pruba @fpeiro](img/ansible-felipe.png)
 
 ## Tabla de contenidos
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [Provisionamiento con Ansible](#provisionamiento-con-ansible)
-	- [Testing][#testing]
+	- [Testing](#testing)
+		- [Testing de otro usuario a este proyecto](#testing-de-otro-usuario-a-este-proyecto)
+		- [Testing de otro proyecto](#testing-de-otro-proyecto)
+	- [Tabla de contenidos](#tabla-de-contenidos)
+	- [Configuración de la máquina de Azure](#configuracin-de-la-mquina-de-azure)
+	- [Provisionamiento de la máquina de Azure](#provisionamiento-de-la-mquina-de-azure)
+	- [Despliegue de Apolo](#despliegue-de-apolo)
+	- [Proyecto en ejecución en la máquina Azure](#proyecto-en-ejecucin-en-la-mquina-azure)
+
+<!-- /TOC -->!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [Provisionamiento con Ansible](#provisionamiento-con-ansible)
+	- [Testing](#testing)
+		- [Testing de otro usuario a este proyecto](#testing-de-otro-usuario-a-este-proyecto)
+		- [Testing de otro proyecto](#testing-de-otro-proyecto)
 	- [Tabla de contenidos](#tabla-de-contenidos)
 	- [Configuración de la máquina de Azure](#configuracin-de-la-mquina-de-azure)
 	- [Provisionamiento de la máquina de Azure](#provisionamiento-de-la-mquina-de-azure)

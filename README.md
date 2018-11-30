@@ -15,19 +15,19 @@ MV: http://23.96.18.95
 	- [URLs de desgliegue](#urls-de-desgliegue)
 	- [Tabla de contenidos](#tabla-de-contenidos)
 - [Build status](#build-status)
-- [Descripción del problema](#descripcin-del-problema)
-- [Solución propuesta](#solucin-propuesta)
-- [Definición del proyecto](#definicin-del-proyecto)
+- [Descripción del problema](#descripción-del-problema)
+- [Solución propuesta](#solución-propuesta)
+- [Definición del proyecto](#definición-del-proyecto)
 - [Arquitectura](#arquitectura)
-	- [Comunicación de microservicios](#comunicacin-de-microservicios)
-- [Planificación](#planificacin)
+	- [Comunicación de microservicios](#comunicación-de-microservicios)
+- [Planificación](#planificación)
 - [Despliegue](#despliegue)
 	- [Testing en Travis-CI](#testing-en-travis-ci)
 	- [Despliegue en Heroku](#despliegue-en-heroku)
 	- [Provisionamiento con Ansible](#provisionamiento-con-ansible)
 		- [Testing de Ansible](#testing-de-ansible)
 - [Funcionalidad implementada hasta la fecha](#funcionalidad-implementada-hasta-la-fecha)
-	- [Ejemplo de ejecución práctico](#ejemplo-de-ejecucin-prctico)
+	- [Ejemplo de ejecución práctico](#ejemplo-de-ejecución-práctico)
 
 <!-- /TOC -->
 
@@ -124,7 +124,7 @@ Una documentación más extensa y detallada de este hito puede verse [en el sigu
 
 ### Testing de Ansible
 
-
+Yo he probado el proyecto de [@fpeiro](https://github.com/fpeiro) y este proyecto ha sido probado por [@xenahort](https://github.com/xenahort). En el [README de Ansible](provision/) se incluye más detalles, así como los pantallazos generados tras su ejecución.
 
 # Funcionalidad implementada hasta la fecha
 
