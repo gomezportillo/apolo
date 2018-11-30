@@ -8,6 +8,10 @@ Para poder completar este hito se han seguido los siguientes pasos.
 
 ## Testing
 
+El usuario [xenahort](https://github.com/xenahort) ha comprobado el provisionamiento en una máquina virtual del proyecto [Apolo](https://github.com/gomezportillo/apolo). Para ello se han seguido los pasos indicados [aquí](https://github.com/gomezportillo/apolo/blob/master/provision/README.md) con la única modificación de los datos referentes a la máquina virtual como usuario y dirección ip.
+
+![Provisionamiento](https://github.com/xenahort/proyectoCloudComputing/blob/master/img/apolo2.png)
+![Prueba](https://github.com/xenahort/proyectoCloudComputing/blob/master/img/apolo1.png)
 
 
 ## Tabla de contenidos
