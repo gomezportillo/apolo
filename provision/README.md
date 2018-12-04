@@ -36,18 +36,6 @@ He testeado el proyecto de [@fpeiro](https://github.com/fpeiro) siguiendo las in
 	- [Despliegue de Apolo](#despliegue-de-apolo)
 	- [Proyecto en ejecución en la máquina Azure](#proyecto-en-ejecucin-en-la-mquina-azure)
 
-<!-- /TOC -->!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-
-- [Provisionamiento con Ansible](#provisionamiento-con-ansible)
-	- [Testing](#testing)
-		- [Testing de otro usuario a este proyecto](#testing-de-otro-usuario-a-este-proyecto)
-		- [Testing de otro proyecto](#testing-de-otro-proyecto)
-	- [Tabla de contenidos](#tabla-de-contenidos)
-	- [Configuración de la máquina de Azure](#configuracin-de-la-mquina-de-azure)
-	- [Provisionamiento de la máquina de Azure](#provisionamiento-de-la-mquina-de-azure)
-	- [Despliegue de Apolo](#despliegue-de-apolo)
-	- [Proyecto en ejecución en la máquina Azure](#proyecto-en-ejecucin-en-la-mquina-azure)
-
 <!-- /TOC -->
 
 ## Configuración de la máquina de Azure
