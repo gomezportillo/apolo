@@ -2,33 +2,30 @@
 
 * [Página web del proyecto](https://gomezportillo.github.io/apolo/).
 
-## URLs de desgliegue
-
-Despliegue https://apolo-cc.herokuapp.com/
-
-MV: http://23.96.18.95
-
 ## Tabla de contenidos
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [Proyecto de Cloud Computing](#proyecto-de-cloud-computing)
-	- [URLs de desgliegue](#urls-de-desgliegue)
 	- [Tabla de contenidos](#tabla-de-contenidos)
 - [Build status](#build-status)
-- [Descripción del problema](#descripción-del-problema)
-- [Solución propuesta](#solución-propuesta)
-- [Definición del proyecto](#definición-del-proyecto)
+- [Descripción del problema](#descripcin-del-problema)
+- [Solución propuesta](#solucin-propuesta)
+- [Definición del proyecto](#definicin-del-proyecto)
 - [Arquitectura](#arquitectura)
-	- [Comunicación de microservicios](#comunicación-de-microservicios)
-- [Planificación](#planificación)
+	- [Comunicación de microservicios](#comunicacin-de-microservicios)
+- [Planificación](#planificacin)
 - [Despliegue](#despliegue)
 	- [Testing en Travis-CI](#testing-en-travis-ci)
 	- [Despliegue en Heroku](#despliegue-en-heroku)
-	- [Provisionamiento con Ansible](#provisionamiento-con-ansible)
-		- [Testing de Ansible](#testing-de-ansible)
-- [Funcionalidad implementada hasta la fecha](#funcionalidad-implementada-hasta-la-fecha)
-	- [Ejemplo de ejecución práctico](#ejemplo-de-ejecución-práctico)
+- [Provisionamiento](#provisionamiento)
+	- [Ansible](#ansible)
+	- [Testing de Ansible](#testing-de-ansible)
+- [Funcionalidad implementada](#funcionalidad-implementada)
+	- [Ejemplo de ejecución práctico](#ejemplo-de-ejecucin-prctico)
+- [URLs de desgliegue](#urls-de-desgliegue)
+	- [Heroku](#heroku)
+	- [Azure](#azure)
 
 <!-- /TOC -->
 
@@ -108,26 +105,28 @@ Heroku ha sido elegido como el PaaS a usar principalmente por ofrecer un amplio 
 Para configurarlo han sido necesarios varios archivos,
 
 * [Procfile](Procfile). En este archivo se especifica el tipo de dyons así como el comando que necesita Heroku para desplegar el proyecto.
-* [runtime.txt](runtime.txt). En este archivo se espeficica la versión del lenguaje de programación que usa el proyecto.
+* [runtime.txt](runtime.txt). En este archivo se especifica la versión del lenguaje de programación que usa el proyecto.
 * [requirements.txt](requirements.txt). Este archivo es compartido con Travis-CI y especifica las dependencias del proyecto. Ambos sitios las instalan ejecutando `pip install -r requirements.txt`.
 
 Por otro lado, aunque se recomienda la utilización de un WSGI (Web Server Gateway Interface) como `gunicorn` (o `waitress` en Windows) por sus diversas ventajas y un proxy de buffering reverso como `Nginx` a la hora de desplegar el servidor, para un proyecto tan pequeño de momento se ha considerado que no es necesario, aunque en un futuro esto pueda cambiar.
 
-## Provisionamiento con Ansible
+# Provisionamiento
+
+## Ansible
 
 [Ansible](https://www.ansible.com/) es un sistema que permite el provisionamiento de máquinas remotas fácilmente. La imagen inferior muestra un croquis de cómo funciona.
 
 ![Ansible](provision/img/ansible.jpg)
 
-Para ello, se ha configurado una máquina Ubuntu Server 18.04 LTS en Azure para acceder a ella a través de SSH, subiendo la clave pública y guardando la privada en local, y tras obtener su IP se ha ejecutado Ansible para que instale en ella todos los componentes necesarios.
+Para ello, se ha configurado en Azure una máquina Ubuntu Server 18.04 LTS en Azure para acceder a ella a través de SSH, subiendo la clave pública y guardando la privada en local, y tras obtener su IP se ha ejecutado Ansible para que instale en ella todos los componentes necesarios.
 
 Una documentación más extensa y detallada de este hito puede verse [en el siguiente enlace](provision/).
 
-### Testing de Ansible
+## Testing de Ansible
 
 Yo he probado el proyecto de [@fpeiro](https://github.com/fpeiro) y este proyecto ha sido probado por [@xenahort](https://github.com/xenahort). En el [README de Ansible](provision/) se incluye más detalles, así como los pantallazos generados tras su ejecución.
 
-# Funcionalidad implementada hasta la fecha
+# Funcionalidad implementada
 
 Actualmente **Apolo** atiende las siguientes peticiones HTTP con los parámetros `{'email': $CORREO, 'instrument': $INSTRUMENTO}` y devuelve las respuestas en formato JSON. Además, ofrece un manejo de las excepciones `404` y `405`  de HTTP e indica a través del código `200` que todo ha ido correctamente.
 
@@ -135,8 +134,8 @@ Actualmente **Apolo** atiende las siguientes peticiones HTTP con los parámetros
 * **POST** en _/users_ actualiza el usuario indicado en los parámetros.
 * **GET** en _/users_ obtiene el usuario indicado a través de los parámetros.
 * **DELETE** en _/users_ borra el usuario indicado en los parámetros.
-* **GET** en _/readAll_ devuelve todos los usuario del sistema.
-* **DELETE** en _/deleteAll_ elimina todos los usuarios del sistema.
+* **GET** en _/users/all_ devuelve todos los usuario del sistema.
+* **DELETE** en _/users/all_ elimina todos los usuarios del sistema.
 
 Esto puede verse con más profundidad en el [propio servidor](apolo/server.py).
 
@@ -159,3 +158,12 @@ siempre y cuando dicho email no exista previamente, ya que es la clave primaria 
 ```
       {'status': 'EMAIL_ALREADY_EXISTS', 'message': 'On inserting usser with email jhon@doe'}
 ```
+# URLs de desgliegue
+
+## Heroku
+
+Despliegue: https://apolo-cc.herokuapp.com/
+
+## Azure
+
+MV: 23.96.18.95
