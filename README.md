@@ -153,7 +153,7 @@ Devolverá la cadena JSON,
       {'status': 'SUCCESS', 'message': 'On inserting usser with email jhon@doe'}
 ```
 
-siempre y cuando dicho email no exista previamente, ya que es la clave primaria o _index_ en MongoDB. En ese caso devolvería,
+Siempre y cuando dicho email no exista previamente, ya que es la clave primaria o _index_ en MongoDB. En ese caso devolvería,
 
 ```
       {'status': 'EMAIL_ALREADY_EXISTS', 'message': 'On inserting usser with email jhon@doe'}
