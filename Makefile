@@ -30,4 +30,10 @@ ansible:
 	cd provision/ansible/ && $(ANSIBLE) playbook.yml
 
 connect-azure:
-	ssh -i ~/SSH_APOLO/key pedroma@23.96.18.95
+	echo "Outdated"
+	# ssh -i ~/SSH_APOLO/key pedroma@23.96.18.95
+
+.PHONY: acopio
+
+acopio:
+	cd acopio/ &&	chmod +x acopio.sh && bash acopio.sh
