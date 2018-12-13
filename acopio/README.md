@@ -5,10 +5,10 @@
 - [Documentación del hito 4](#documentacin-del-hito-4)
 	- [Instalación de el CLI de Azure](#instalacin-de-el-cli-de-azure)
 	- [Listado de todas las imágenes de máquinas virtuales disponibles](#listado-de-todas-las-imgenes-de-mquinas-virtuales-disponibles)
-	- [Opción 1. Sólo con la API de Azure](#opcin-1-slo-con-la-api-de-azure)
-	- [Opción 2. Usando `jq` para filtrar las imágenes](#opcin-2-usando-jq-para-filtrar-las-imgenes)
-	- [Selección de la imagen a utilizar](#seleccin-de-la-imagen-a-utilizar)
+		- [Opción 1. Sólo con la API de Azure](#opcin-1-slo-con-la-api-de-azure)
+		- [Opción 2. Usando `jq` para filtrar las imágenes](#opcin-2-usando-jq-para-filtrar-las-imgenes)
 	- [Pruebas de velocidad entre los distintos centros de datos de Azure](#pruebas-de-velocidad-entre-los-distintos-centros-de-datos-de-azure)
+	- [Selección de la imagen a utilizar](#seleccin-de-la-imagen-a-utilizar)
 	- [Script de automatización de creación de VM](#script-de-automatizacin-de-creacin-de-vm)
 		- [Ejecución del script](#ejecucin-del-script)
 
@@ -51,7 +51,7 @@ Lo que devolverá un mensaje JSON parecido al siguiente.
 
 ## Listado de todas las imágenes de máquinas virtuales disponibles
 
-## Opción 1. Sólo con la API de Azure
+### Opción 1. Sólo con la API de Azure
 
 ```bash
 az vm image list --output table --all
@@ -59,7 +59,7 @@ az vm image list --output table --all
 
 Más información en la [documentación de Microsoft](https://docs.microsoft.com/es-es/azure/virtual-machines/linux/cli-ps-findimage).
 
-## Opción 2. Usando `jq` para filtrar las imágenes
+### Opción 2. Usando `jq` para filtrar las imágenes
 
 `jq` es una librería para trabajar con mensajes JSON. A través de su uso podemos filtrar la lista obtenida de la API de Azure y adaptarla para verla mejor. Un ejemplo de su uso sería el siguiente.
 
