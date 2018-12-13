@@ -76,8 +76,9 @@ Cada hito tiene un link a su página en GitHub.
 * [x] [Hito 1](https://github.com/gomezportillo/apolo/milestone/1): Crear página web con la definición de la arquitectura.
 * [x] [Hito 2](https://github.com/gomezportillo/apolo/milestone/2): Crear un microservicio y desplegarlo en Travis y Heroku automáticamente tras pasar los tests.
 * [x] [Hito 3](https://github.com/gomezportillo/apolo/milestone/3): Provisionamiento con Ansible
-* [ ] [Hito 4](https://github.com/gomezportillo/apolo/milestone/5): Orquestación
-* [ ] [Hito 5](https://github.com/gomezportillo/apolo/milestone/6): Composición
+* [ ] [Hito 4](https://github.com/gomezportillo/apolo/milestone/5): Automatización de creación de VM con el CLI de Azure
+* [ ] [Hito 5](https://github.com/gomezportillo/apolo/milestone/6): Orquestación con Vagrant
+* [ ] [Hito 5](https://github.com/gomezportillo/apolo/milestone/6): Docker
 
 # Despliegue
 
@@ -125,6 +126,10 @@ Una documentación más extensa y detallada de este hito puede verse [en el sigu
 ## Testing de Ansible
 
 Yo he probado el proyecto de [@fpeiro](https://github.com/fpeiro) y este proyecto ha sido probado por [@xenahort](https://github.com/xenahort). En el [README de Ansible](provision/) se incluye más detalles, así como los pantallazos generados tras su ejecución.
+
+# Acopio
+
+La documentación del hito 4 referente a la automatización de la creación de máquinas virtuales con el cliente de línea de comandos de Azure puede verse en el [siguiente enlace](acopio/README.md).
 
 # Funcionalidad implementada
 
