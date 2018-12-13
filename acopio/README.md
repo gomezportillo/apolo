@@ -93,11 +93,26 @@ Su ejecución puede durar bastante, por lo que se ha añadido la salida ejecutad
 
 De este modo es mucho más fácil encontrar el publisher y la versión específica que necesitamos.
 
-## Selección de la imagen a utilizar
-
-⚠️ TO DO ⚠️
-
 ## Pruebas de velocidad entre los distintos centros de datos de Azure
+
+Inicialmente se tuvo la necesidad de decidir la localización geográfica del servidor de Azure en el que se va a desplegar el proyecto. Como no se contaban con datos empíricos para tomar dicha decisión, se ha decidido usar la herramienta de código abierto `httperf`].
+
+Por cercanía a la zona de la que van a ser la mayoría de los usuarios de este proyecto, se ha elegido entre las localizaciones **North Europe** y **West Europe**. Tras crear dos máquinas con Ubuntu Server 18.04 LTS idénticas, una en cada localización, y ejecutar la orden
+
+`httperf --port 80 --num-conns 10 --rate 1 --server $(IP)`,
+
+se han recopilado los resultados obtenidos en la siguiente tabla. El argumento `--num-conns` indica el número de conexiones realizadas, en este caso 10, por lo que en cada localización se trabajará con la media de estas 10 conexiones.
+
+| Característica | North Europe | West Europe   |
+| -------------- |:------------:| -------------:|
+| Connection rate (ms/conn)     | 911.6 |	985.4 |
+| Connection time(ms) 			    | 184.1 | 225.1 |
+| Reply time in response (ms)   |  77.2 |  1.5  |
+| Reply time in transfer (ms)   |  92.7 |  5.9  |
+
+A la vista de estos resultados se ha elegido **North Europe** como localización para las máquinas virtuales.
+
+## Selección de la imagen a utilizar
 
 ⚠️ TO DO ⚠️
 
@@ -105,7 +120,7 @@ De este modo es mucho más fácil encontrar el publisher y la versión específi
 
 ⚠️ TO DO ⚠️
 
-(acopio.sh)(https://github.com/gomezportillo/apolo/blob/master/acopio.sh)
+[acopio.sh](https://github.com/gomezportillo/apolo/blob/master/acopio.sh)
 
 ### Ejecución del script
 

@@ -26,6 +26,9 @@ install-azure:
 	sudo apt-get update
 	sudo apt-get install azure-cli
 
+install-milestone4-tools:
+	sudo apt-get install jq httperf -y
+
 ansible:
 	cd provision/ansible/ && $(ANSIBLE) playbook.yml
 

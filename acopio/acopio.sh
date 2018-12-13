@@ -9,6 +9,7 @@ then
   NS_GROUP=apolo_network_security_group
   VM_NAME=apoloVM1
   VM_USER=pedroma
+  LOCATION=northeurope
 
   echo -e "\n==== Deleting all VM previously created in resource group"
   az vm delete --ids $(az vm list --resource-group $RES_GROUP --query "[].id" -o tsv) --yes >/dev/null
@@ -19,7 +20,7 @@ then
 
 
   echo -e "=== Creating resource group"
-  az group create --location westeurope --name $RES_GROUP
+  az group create --location $LOCATION --name $RES_GROUP
 
 
   echo -e "==== Creating virtual machine on Azure"
@@ -32,25 +33,25 @@ then
 
 
   echo -e "==== Uploading public key"
-  az vm user update --resource-group $RES_GROUP --name $VM_NAME --user pedroma --ssh-key-value "$(cat ~/SSH_APOLO/key.pub)"
+  az vm user update --resource-group $RES_GROUP --name $VM_NAME --user $VM_USER --ssh-key-value "$(cat ~/SSH_APOLO/key.pub)"
 
 
   echo -e "==== Creating network security group"
   az network nsg create --resource-group $RES_GROUP --name $NS_GROUP  >/dev/null
 
 
-  echo -e "==== Opening SSH port"
+  echo -e "==== Defining rule for opening SSH port"
   az network nsg rule create --resource-group $RES_GROUP --nsg-name $NS_GROUP --name SSH_rule \
       --protocol tcp \
-      --priority 1000 \
+      --priority 320 \
       --destination-port-range 22 \
       --access allow  >/dev/null
 
 
-  echo -e "==== Opening HTTP port"
+  echo -e "==== Defining rule for opening HTTP port"
   az network nsg rule create --resource-group $RES_GROUP --nsg-name $NS_GROUP --name HTTP_rule \
       --protocol tcp \
-      --priority 999 \
+      --priority 300 \
       --destination-port-range 80 \
       --access allow  >/dev/null
 
