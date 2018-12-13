@@ -23,7 +23,7 @@ then
 
 
   echo -e "==== Creating virtual machine on Azure"
-  az_output=$(az vm create --resource-group $RES_GROUP --name $VM_NAME --image UbuntuLTS)
+  az_output=$(az vm create --resource-group $RES_GROUP --name $VM_NAME --image UbuntuLTS --size Standard_B1s)
 
 
   echo -e "==== Obtaining publish IP address"
