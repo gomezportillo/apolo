@@ -49,7 +49,7 @@ Una vez decidido el sistema operativo, se eligió la máquina más barata de Azu
 * **S.O**: Ubuntu Server 18.04 LTS
 * **Nombre de usuario**: pedroma
 * **IP**: Estática
-* **Puertos de entrada**: HTTP, HTTPS, RDR, SSH
+* **Puertos de entrada**: HTTP, HTTPS, RDP, SSH
 
 Para el tipo de autentificación se eligió **SSH**, así que tras crear un par pública/privada de claves (`key.pub` y `key`, respectivamente) con el comando `ssh-keygen` y almacenarlas en la máquina local en `~/SSH_APOLO`, se indicó la clave pública en Azure a la hora de configurar la máquina.
 
