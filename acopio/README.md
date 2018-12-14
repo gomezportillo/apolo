@@ -124,11 +124,14 @@ Por otro lado, al ser una de las distribuciones más famosas de Linux, es muy pr
 En el archivo [acopio.sh](acopio.sh) puede verse el resultado de este hito. En esencia, este script pregunta al usuario por los siguientes parámetros,
 
 * ¿Instalar el CLI de Azure?
+
+Si sí se seguirán los pasos explicados anteriormente para hacerlo automáticamente y tras ello se ejecutará `az login` para iniciar sesión en Azure.
+
 * ¿Crear grupo de recursos y de seguridad de red?
 
 Si sí se ejecutará
 
-```console
+```bash
 az group create --location $LOCATION --name $RES_GROUP
 az network nsg create --resource-group $RES_GROUP --name $NS_GROUP  >/dev/null
 az network nsg rule create --resource-group $RES_GROUP --nsg-name $NS_GROUP --name SSH_rule --protocol tcp --priority 320 --destination-port-range 22 --access allow
@@ -168,7 +171,7 @@ ssh -i $SSH_KEY_LOCATOIN $VM_USER@$IP
 
 Como es un script Bash, y [Bash y Shell no son lo mismo](https://askubuntu.com/questions/172481/is-bash-scripting-the-same-as-shell-scripting), se necesita el comando `bash` para ejecutarlo. Para hacerlo por primera vez, basta con situarse en el directorio _acopio/_ y ejecutar `chmod +x acopio.sh` para conceder permisos de ejecución al archivo y ejecutarlo con `bash acopio.sh`.
 
-Se ha añadido al `Makefile` del proyecto la orden `acopio` para ejecutar automáticamente estas órdenes. Para ello, basta con situarse en el directorio raiz dep proyecto y ejecutar `make acopio`.
+Se ha añadido al `Makefile` del proyecto la orden `acopio` para ejecutar automáticamente estas órdenes. Para ello, basta con situarse en el directorio raíz del proyecto y ejecutar `make acopio`.
 
 ### Diagrama de flujo
 
