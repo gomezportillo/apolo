@@ -4,7 +4,7 @@
 
 ## Tabla de contenidos
 
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:undefined orderedList:0 -->
 
 - [Build status](#build-status)
 - [Descripción del problema](#descripcin-del-problema)
@@ -23,8 +23,9 @@
 - [Funcionalidad implementada](#funcionalidad-implementada)
 	- [Ejemplo de ejecución práctico](#ejemplo-de-ejecucin-prctico)
 - [URLs de desgliegue](#urls-de-desgliegue)
-	- [Heroku](#heroku)
-	- [Azure](#azure)
+	- [Hito 2 (Heroku)](#hito-2-heroku)
+	- [Hito 3 (Azure)](#hito-3-azure)
+	- [Hito 4 (Acopio)](#hito-4-acopio)
 
 <!-- /TOC -->
 
@@ -164,10 +165,14 @@ Siempre y cuando dicho email no exista previamente, ya que es la clave primaria 
 ```
 # URLs de desgliegue
 
-## Heroku
+## Hito 2 (Heroku)
 
-OUTDATED
+Despliegue: https://apolo-cc.herokuapp.com/
 
-## Azure
+## Hito 3 (Azure)
 
-Despliegue: 13.79.23.106
+MV: 23.96.18.95
+
+## Hito 4 (Acopio)
+
+MV2: 13.79.23.106
