@@ -118,7 +118,7 @@ then
     az_output=$(az vm create --resource-group $RES_GROUP --name $VM_NAME --nsg $NS_GROUP --image UbuntuLTS --size Standard_B1s)
 
 
-    echo -e "Obtaining publish IP address..."
+    echo -e "Obtaining public IP address..."
     IP=$(echo $az_output | jq -r '.publicIpAddress')
     echo "$IP"
 

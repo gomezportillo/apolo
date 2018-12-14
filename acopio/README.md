@@ -2,17 +2,16 @@
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [Documentación del hito 4](#documentacin-del-hito-4)
-	- [Instalación de el CLI de Azure](#instalacin-de-el-cli-de-azure)
-	- [Listado de todas las imágenes de máquinas virtuales disponibles](#listado-de-todas-las-imgenes-de-mquinas-virtuales-disponibles)
-		- [Opción 1. Sólo con la API de Azure](#opcin-1-slo-con-la-api-de-azure)
-		- [Opción 2. Usando `jq` para filtrar las imágenes](#opcin-2-usando-jq-para-filtrar-las-imgenes)
-	- [Pruebas de velocidad entre los distintos centros de datos de Azure](#pruebas-de-velocidad-entre-los-distintos-centros-de-datos-de-azure)
-	- [Selección de la imagen a utilizar](#seleccin-de-la-imagen-a-utilizar)
-	- [Script de automatización de creación de máquinas virtuales](#script-de-automatizacin-de-creacin-de-mquinas-virtuales)
-		- [Ejecución del script](#ejecucin-del-script)
-		- [Diagrama de flujo](#diagrama-de-flujo)
-		- [Salida del script](#salida-del-script)
+- [Instalación de el CLI de Azure](#instalación-de-el-cli-de-azure)
+- [Listado de todas las imágenes de máquinas virtuales disponibles](#listado-de-todas-las-imágenes-de-máquinas-virtuales-disponibles)
+	- [Opción 1. Sólo con la API de Azure](#opción-1-sólo-con-la-api-de-azure)
+	- [Opción 2. Usando `jq` para filtrar las imágenes](#opción-2-usando-jq-para-filtrar-las-imágenes)
+- [Pruebas de velocidad entre los distintos centros de datos de Azure](#pruebas-de-velocidad-entre-los-distintos-centros-de-datos-de-azure)
+- [Selección de la imagen a utilizar](#selección-de-la-imagen-a-utilizar)
+- [Script de automatización de creación de máquinas virtuales](#script-de-automatización-de-creación-de-máquinas-virtuales)
+	- [Ejecución del script](#ejecución-del-script)
+	- [Diagrama de flujo](#diagrama-de-flujo)
+	- [Salida del script](#salida-del-script)
 
 <!-- /TOC -->
 
@@ -20,17 +19,17 @@
 
 Para instalar el cliente de línea de comandos de Azure se han ejecutado los siguientes comandos en local, de acuerdo con la [guía oficial de Microsoft](https://docs.microsoft.com/es-es/cli/azure/install-azure-cli-apt?view=azure-cli-latest).
 
-* Para añadir Azure a la lista de repositorios
+* Para instalar dependencias y añadir Azure a la lista de repositorios
 
 ```bash
 sudo apt-get install apt-transport-https lsb-release software-properties-common -y
 AZ_REPO=$(lsb_release -cs)
+echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | sudo tee /etc/apt/sources.list.d/azure-cli.list
 ```
 
 * Para añadir las claves de firma de Microsoft
 
 ```bash
-echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | sudo tee /etc/apt/sources.list.d/azure-cli.list
 sudo apt-key --keyring /etc/apt/trusted.gpg.d/Microsoft.gpg adv --keyserver packages.microsoft.com --recv-keys BC528686B50D79E339D3721CEB3E94ADBE1229CF
 ```
 
@@ -133,7 +132,7 @@ Si sí se ejecutará
 
 ```bash
 az group create --location $LOCATION --name $RES_GROUP
-az network nsg create --resource-group $RES_GROUP --name $NS_GROUP  >/dev/null
+az network nsg create --resource-group $RES_GROUP --name $NS_GROUP
 az network nsg rule create --resource-group $RES_GROUP --nsg-name $NS_GROUP --name SSH_rule --protocol tcp --priority 320 --destination-port-range 22 --access allow
 az network nsg rule create --resource-group $RES_GROUP --nsg-name $NS_GROUP --name HTTP_rule --protocol tcp --priority 300 --destination-port-range 80 --access allow
 ```
@@ -143,7 +142,7 @@ az network nsg rule create --resource-group $RES_GROUP --nsg-name $NS_GROUP --na
 Si sí se ejecutará
 
 ```bash
-az vm delete --ids $(az vm list --resource-group $RES_GROUP --query "[].id" -o tsv) --yes >/dev/null
+az vm delete --ids $(az vm list --resource-group $RES_GROUP --query "[].id" -o tsv) --yes
 az network nsg delete --resource-group $RES_GROUP -n $NS_GROUP
 ssh-keygen -t rsa -b 2048 -f $SSH_KEY_LOCATOIN -q -N "" -y
 ```
@@ -185,5 +184,4 @@ A continuación de muestra una imagen de la ejecución del script tras indicarle
 
 ![Azure VMG output](img/azure-VMG-output.png)
 
-La máquina que se ha utilizado para pasar los test de este hito ha sido esta misma, con IP `13.79.23.106
-`, y no se ha accedido al portal de Azure para cambiarla en absolutamente nada.
+La máquina que se ha utilizado para pasar los test de este hito ha sido esta misma, con IP `13.79.23.106`, y no se ha accedido al portal de Azure para cambiarla en absolutamente nada.
