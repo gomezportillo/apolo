@@ -9,8 +9,10 @@
 		- [Opción 2. Usando `jq` para filtrar las imágenes](#opcin-2-usando-jq-para-filtrar-las-imgenes)
 	- [Pruebas de velocidad entre los distintos centros de datos de Azure](#pruebas-de-velocidad-entre-los-distintos-centros-de-datos-de-azure)
 	- [Selección de la imagen a utilizar](#seleccin-de-la-imagen-a-utilizar)
-	- [Script de automatización de creación de VM](#script-de-automatizacin-de-creacin-de-vm)
+	- [Script de automatización de creación de máquinas virtuales](#script-de-automatizacin-de-creacin-de-mquinas-virtuales)
 		- [Ejecución del script](#ejecucin-del-script)
+		- [Diagrama de flujo](#diagrama-de-flujo)
+		- [Salida del script](#salida-del-script)
 
 <!-- /TOC -->
 
@@ -117,14 +119,68 @@ A la vista de los resultados del [siguiente artículo](https://www.premper.com/p
 
 Por otro lado, al ser una de las distribuciones más famosas de Linux, es muy probable que todos los programas y librerías que vaya a necesitan den soporte a esta distribución.
 
-## Script de automatización de creación de VM
+## Script de automatización de creación de máquinas virtuales
 
-En esta sección se describirá el archivo [acopio.sh](https://github.com/gomezportillo/apolo/blob/master/acopio.sh) escrito para este hito.
+En el archivo [acopio.sh](acopio.sh) puede verse el resultado de este hito. En esencia, este script pregunta al usuario por los siguientes parámetros,
 
+* ¿Instalar el CLI de Azure?
+* ¿Crear grupo de recursos y de seguridad de red?
 
+Si sí se ejecutará
+
+```console
+az group create --location $LOCATION --name $RES_GROUP
+az network nsg create --resource-group $RES_GROUP --name $NS_GROUP  >/dev/null
+az network nsg rule create --resource-group $RES_GROUP --nsg-name $NS_GROUP --name SSH_rule --protocol tcp --priority 320 --destination-port-range 22 --access allow
+az network nsg rule create --resource-group $RES_GROUP --nsg-name $NS_GROUP --name HTTP_rule --protocol tcp --priority 300 --destination-port-range 80 --access allow
+```
+
+* ¿Borrar máquinas virtuales y claves SSH creadas anteriormente?
+
+Si sí se ejecutará
+
+```bash
+az vm delete --ids $(az vm list --resource-group $RES_GROUP --query "[].id" -o tsv) --yes >/dev/null
+az network nsg delete --resource-group $RES_GROUP -n $NS_GROUP
+ssh-keygen -t rsa -b 2048 -f $SSH_KEY_LOCATOIN -q -N "" -y
+```
+
+* ¿Cuántas máquinas virtuales crear?
+
+Por cada una de ellas se ejecutará
+
+```bash
+az_output=$(az vm create --resource-group $RES_GROUP --name $VM_NAME --nsg $NS_GROUP --image UbuntuLTS --size Standard_B1s)
+IP=$(echo $az_output | jq -r '.publicIpAddress')
+az vm user update --resource-group $RES_GROUP --name $VM_NAME --user $VM_USER --ssh-key-value "$(cat $SSH_KEY_LOCATOIN.pub)"
+ansible-playbook --inventory "$IP," --user $VM_USER playbook.yml
+```
+
+* Y, tras crear cada una, ¿conectar a través de SSH?
+
+Si sí se ejecutará
+
+```bash
+ssh -i $SSH_KEY_LOCATOIN $VM_USER@$IP
+```
 
 ### Ejecución del script
 
 Como es un script Bash, y [Bash y Shell no son lo mismo](https://askubuntu.com/questions/172481/is-bash-scripting-the-same-as-shell-scripting), se necesita el comando `bash` para ejecutarlo. Para hacerlo por primera vez, basta con situarse en el directorio _acopio/_ y ejecutar `chmod +x acopio.sh` para conceder permisos de ejecución al archivo y ejecutarlo con `bash acopio.sh`.
 
 Se ha añadido al `Makefile` del proyecto la orden `acopio` para ejecutar automáticamente estas órdenes. Para ello, basta con situarse en el directorio raiz dep proyecto y ejecutar `make acopio`.
+
+### Diagrama de flujo
+
+El diagrama de flujo de la ejecución de este script es el siguiente.
+
+![Flowchart](img/flowchart.png)
+
+### Salida del script
+
+A continuación de muestra una imagen de la ejecución del script tras indicarle que no queremos instalar el CLI de Azure, no queremos crear nuevos grupos ni no queremos borrar los que ya existen y queremos crear una máquina virtual.
+
+![Azure VMG output](img/azure-VMG-output.png)
+
+La máquina que se ha utilizado para pasar los test de este hito ha sido esta misma, con IP `13.79.23.106
+`, y no se ha accedido al portal de Azure para cambiarla en absolutamente nada.
