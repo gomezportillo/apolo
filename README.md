@@ -6,8 +6,6 @@
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [Proyecto de Cloud Computing](#proyecto-de-cloud-computing)
-	- [Tabla de contenidos](#tabla-de-contenidos)
 - [Build status](#build-status)
 - [Descripción del problema](#descripcin-del-problema)
 - [Solución propuesta](#solucin-propuesta)
@@ -21,6 +19,7 @@
 - [Provisionamiento](#provisionamiento)
 	- [Ansible](#ansible)
 	- [Testing de Ansible](#testing-de-ansible)
+- [Acopio](#acopio)
 - [Funcionalidad implementada](#funcionalidad-implementada)
 	- [Ejemplo de ejecución práctico](#ejemplo-de-ejecucin-prctico)
 - [URLs de desgliegue](#urls-de-desgliegue)
@@ -76,13 +75,13 @@ Cada hito tiene un link a su página en GitHub.
 * [x] [Hito 1](https://github.com/gomezportillo/apolo/milestone/1): Crear página web con la definición de la arquitectura.
 * [x] [Hito 2](https://github.com/gomezportillo/apolo/milestone/2): Crear un microservicio y desplegarlo en Travis y Heroku automáticamente tras pasar los tests.
 * [x] [Hito 3](https://github.com/gomezportillo/apolo/milestone/3): Provisionamiento con Ansible
-* [ ] [Hito 4](https://github.com/gomezportillo/apolo/milestone/5): Automatización de creación de VM con el CLI de Azure
+* [x] [Hito 4](https://github.com/gomezportillo/apolo/milestone/5): Automatización de creación de VM con el CLI de Azure
 * [ ] [Hito 5](https://github.com/gomezportillo/apolo/milestone/6): Orquestación con Vagrant
 * [ ] [Hito 5](https://github.com/gomezportillo/apolo/milestone/6): Docker
 
 # Despliegue
 
-Para conseguir el efecto **Gran botón rojo** del que hablamos en teoría (poder desplegar totalmente una aplicación al darle a un solo botón) he creado una pipeline de trabajo en la que tras hacer un push a la rama master, el proyecto es testeado en Travis-CI de donde, solo tras pasar los test, es desplegado automáticamente en Heroku.
+Para conseguir el efecto **Gran botón rojo** del que hablamos en teoría (poder desplegar totalmente una aplicación al darle a un solo botón) he creado un pipeline de trabajo en el que tras hacer un push a la rama master, el proyecto es testeado en Travis-CI de donde, solo tras pasar los test, es desplegado automáticamente en Heroku.
 
 ![Despliegue](assets/readme/deploy.jpg)
 
@@ -167,8 +166,8 @@ Siempre y cuando dicho email no exista previamente, ya que es la clave primaria 
 
 ## Heroku
 
-Despliegue: https://apolo-cc.herokuapp.com/
+OUTDATED
 
 ## Azure
 
-MV: 23.96.18.95
+Despliegue: 13.79.23.106
