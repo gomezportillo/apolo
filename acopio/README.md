@@ -47,7 +47,7 @@ az login
 
 Lo que devolverá un mensaje JSON parecido al siguiente.
 
-![Az login](az-login.png)
+![Az login](img/az-login.png)
 
 ## Listado de todas las imágenes de máquinas virtuales disponibles
 
@@ -64,7 +64,6 @@ Más información en la [documentación de Microsoft](https://docs.microsoft.com
 `jq` es una librería para trabajar con mensajes JSON. A través de su uso podemos filtrar la lista obtenida de la API de Azure y adaptarla para verla mejor. Un ejemplo de su uso sería el siguiente.
 
 ```bash
-sudo apt-get install jq
 az vm image list --offer Ubuntu --all | jq ".[] | [.offer, .publisher, .sku]"
 ```
 
@@ -89,39 +88,43 @@ Un fragmento de la salida de la ejecución del comando anterior es la siguiente.
 ...
 ```
 
-Su ejecución puede durar bastante, por lo que se ha añadido la salida ejecutada el 13/12/2018 en el archivo [jq-output.txt](jq-output.txt).
+Su ejecución puede durar bastante, por lo que se ha añadido la salida ejecutada el día 13/12/2018 en el archivo [jq-output.txt](jq-output.txt).
 
 De este modo es mucho más fácil encontrar el publisher y la versión específica que necesitamos.
 
 ## Pruebas de velocidad entre los distintos centros de datos de Azure
 
-Inicialmente se tuvo la necesidad de decidir la localización geográfica del servidor de Azure en el que se va a desplegar el proyecto. Como no se contaban con datos empíricos para tomar dicha decisión, se ha decidido usar la herramienta de código abierto `httperf`].
+Inicialmente se tuvo la necesidad de decidir la localización geográfica del servidor de Azure en el que se va a desplegar el proyecto. Como no se contaban con datos empíricos para tomar dicha decisión, se ha decidido usar la herramienta de código abierto `httperf` para obtener datos que ayuden a tomar esta decisión, ya que permite medir el tiempo de conexión y respuesta de servidores.
 
-Por cercanía a la zona de la que van a ser la mayoría de los usuarios de este proyecto, se ha elegido entre las localizaciones **North Europe** y **West Europe**. Tras crear dos máquinas con Ubuntu Server 18.04 LTS idénticas, una en cada localización, y ejecutar la orden
+Por cercanía a la zona de la que van a ser la mayoría de los usuarios de este proyecto (España), se ha elegido entre las localizaciones *North Europe* y *West Europe*. Tras crear dos máquinas con Ubuntu Server 18.04 LTS idénticas, una en cada localización, y ejecutar la orden
 
 `httperf --port 80 --num-conns 10 --rate 1 --server $(IP)`,
 
 se han recopilado los resultados obtenidos en la siguiente tabla. El argumento `--num-conns` indica el número de conexiones realizadas, en este caso 10, por lo que en cada localización se trabajará con la media de estas 10 conexiones.
 
 | Característica | North Europe | West Europe   |
-| -------------- |:------------:| -------------:|
+| -------------- |-------------:| -------------:|
 | Connection rate (ms/conn)     | 911.6 |	985.4 |
 | Connection time(ms) 			    | 184.1 | 225.1 |
-| Reply time in response (ms)   |  77.2 |  1.5  |
-| Reply time in transfer (ms)   |  92.7 |  5.9  |
+| Reply time in response (ms)   |  77.2 |  92.7 |
+| Reply time in transfer (ms)   |  1.5  |  5.9  |
 
-A la vista de estos resultados se ha elegido **North Europe** como localización para las máquinas virtuales.
+A la vista de estos resultados (cuanto menor, mejor) se ha elegido **North Europe** como localización para las máquinas virtuales.
 
 ## Selección de la imagen a utilizar
 
-⚠️ TO DO ⚠️
+A la vista de los resultados del [siguiente artículo](https://www.premper.com/por-que-usamos-servidores-ubuntu), y siendo un sistema que ya conocía, he elegido usar **Ubuntu Server 18.04 LTS** o, por su nombre en clave, **Bionic Beaver**, como sistema operativo en el que se desplegará el proyecto. Es importante que sea una LTS ya que necesitamos soporto a largo plazo.
+
+Por otro lado, al ser una de las distribuciones más famosas de Linux, es muy probable que todos los programas y librerías que vaya a necesitan den soporte a esta distribución.
 
 ## Script de automatización de creación de VM
 
-⚠️ TO DO ⚠️
+En esta sección se describirá el archivo [acopio.sh](https://github.com/gomezportillo/apolo/blob/master/acopio.sh) escrito para este hito.
 
-[acopio.sh](https://github.com/gomezportillo/apolo/blob/master/acopio.sh)
+
 
 ### Ejecución del script
 
-⚠️ TO DO ⚠️
+Como es un script Bash, y [Bash y Shell no son lo mismo](https://askubuntu.com/questions/172481/is-bash-scripting-the-same-as-shell-scripting), se necesita el comando `bash` para ejecutarlo. Para hacerlo por primera vez, basta con situarse en el directorio _acopio/_ y ejecutar `chmod +x acopio.sh` para conceder permisos de ejecución al archivo y ejecutarlo con `bash acopio.sh`.
+
+Se ha añadido al `Makefile` del proyecto la orden `acopio` para ejecutar automáticamente estas órdenes. Para ello, basta con situarse en el directorio raiz dep proyecto y ejecutar `make acopio`.
