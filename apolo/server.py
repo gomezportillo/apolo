@@ -6,8 +6,8 @@ from flask import jsonify
 import json
 import pymongo
 
-from model.user import User
-from model.daouser import DAOUser
+from apolo.model.user import User
+from apolo.model.daouser import DAOUser
 
 # App definition
 app = Flask(__name__)
