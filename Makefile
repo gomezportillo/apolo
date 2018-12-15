@@ -2,11 +2,12 @@ PYTHON  := python3
 PIP 	  := pip3
 ANSIBLE := ansible-playbook
 PYTEST  := pytest
+GUNICORN:= gunicorn
 
 all: run
 
 run:
-	$(PYTHON) apolo/server.py
+	$(GUNICORN) --bind 0.0.0.0:8000 wsgi
 
 test:
 	$(PYTEST) apolo/test_daouser.py

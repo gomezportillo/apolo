@@ -1,1 +1,1 @@
-web: python3 apolo/server.py
+web: gunicorn --chdir apolo apolo:app
