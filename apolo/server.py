@@ -1,53 +1,42 @@
-import os
+from aux import *
+
 from flask import Flask
 from flask import request
 from flask import jsonify
+from flask import Response
+from flask import json
 
-import json
-import pymongo
-
-from model.user import User
-from model.daouser import DAOUser
 
 # App definition
 app = Flask(__name__)
 
-# MongoDB configuration
-MONGODB_URI = 'mongodb://user:user123@ds024548.mlab.com:24548/apolo-mongodb'
-
-# DAO user
-daouser = DAOUser(MONGODB_URI, COLLECTION_NAME)
 
 @app.route('/', methods=['GET'])
-def index():
-    data = {}
-    data['status'] = 'OK'
-    data['ruta'] = request.url
-    resp = jsonify(data)
-    resp.status_code = 200
-    return resp
-
 @app.route('/about', methods=['GET'])
 def about():
-    data = {}
-    data['status'] = 'OK'
-    data['author'] = 'Pedro Manuel Gomez-Portillo Lopez'
-    resp = jsonify(data)
-    resp.status_code = 200
-    return resp
+    server_info['ruta'] = request.url
+    return Response(json.dumps(server_info), status=200, mimetype='application/json')
+
+
+@app.route('/log', methods=['GET'])
+def log():
+    file = open(LOG_FILE, 'r')
+    return Response(file.read(), status=200, mimetype='application/json')
+
 
 @app.route('/users', methods=['PUT'])
 def insert():
     new_user = parse_arguments_to_user( request.form )
-    status = daouser.insert(new_user)
+    status = daouser.insert( new_user )
 
     result = {}
     result['status'] = status
     result['message'] = 'On adding user with email {} '.format(new_user.email)
 
-    resp = jsonify(result)
-    resp.status_code = 200
-    return resp
+    app.logger.info( result )
+
+    return Response(json.dumps(result), status=200, mimetype='application/json')
+
 
 @app.route('/users', methods=['POST'])
 def update():
@@ -58,9 +47,11 @@ def update():
     result['status'] = status
     result['message'] = 'On updating user with email {} '.format(user.email)
 
-    resp = jsonify(result)
-    resp.status_code = 200
-    return resp
+    app.logger.info( result )
+
+    return Response(json.dumps(result), status=200, mimetype='application/json')
+
+
 
 @app.route('/users', methods=['DELETE'])
 def delete():
@@ -71,9 +62,10 @@ def delete():
     result['status'] = status
     result['message'] = 'On deleting user with email {} '.format(user.email)
 
-    resp = jsonify(result)
-    resp.status_code = 200
-    return resp
+    app.logger.info( result )
+
+    return Response(json.dumps(result), status=200, mimetype='application/json')
+
 
 @app.route('/users',  methods=['GET'])
 def find():
@@ -100,16 +92,14 @@ def find():
     result['status'] = status
     result['message'] = users
 
-    resp = jsonify(result)
-    resp.status_code = 200
-    return resp
+    return Response(json.dumps(result), status=200, mimetype='application/json')
+
 
 @app.route('/users/all', methods=['GET'])
 def readall():
     users = daouser.readAll()
-    resp = jsonify(users)
-    resp.status_code = 200
-    return resp
+    return Response(json.dumps(users), status=200, mimetype='application/json')
+
 
 @app.route('/users/all', methods=['DELETE'])
 def deleteAll():
@@ -119,9 +109,10 @@ def deleteAll():
     result['status'] = status
     result['message'] = 'On deleting all users'
 
-    resp = jsonify(result)
-    resp.status_code = 200
-    return resp
+    app.logger.info( result )
+
+    return Response(json.dumps(result), status=200, mimetype='application/json')
+
 
 @app.errorhandler(404)
 def not_found(error=None):
@@ -129,9 +120,10 @@ def not_found(error=None):
     msg['status'] = 404
     msg['message'] = 'URL {} not found'.format(request.url)
 
-    resp = jsonify(msg)
-    resp.status_code = 404
-    return resp
+    app.logger.info( msg )
+
+    return Response(json.dumps(msg), status=404, mimetype='application/json')
+
 
 @app.errorhandler(405)
 def not_allowed(error=None):
@@ -139,9 +131,10 @@ def not_allowed(error=None):
     msg['status'] = 405
     msg['message'] = 'URL {} not allowed from {} HTTP method'.format(request.url, request.method)
 
-    resp = jsonify(msg)
-    resp.status_code = 405
-    return resp
+    app.logger.info( msg )
+
+    return Response(json.dumps(msg), status=405, mimetype='application/json')
+
 
 def parse_arguments_to_user(form):
     email = str(request.form['email'])
@@ -154,6 +147,7 @@ def parse_arguments_to_user(form):
 
     return User(email, instrument)
 
+
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 80))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=True)
