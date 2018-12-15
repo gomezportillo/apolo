@@ -1,6 +1,6 @@
 import pymongo
 
-from apolo.model import user
+from model import user
 
 PRIMARY_KEY = 'email'
 
