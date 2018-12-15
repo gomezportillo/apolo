@@ -9,7 +9,7 @@ class TestDAO(unittest.TestCase):
 
     @classmethod
     def setUpClass(self):
-        self.daouser = DAOUser(MONGODB_URI, COLLECTION_NAME)
+        self.daouser = DAOUser(MONGODB_URI)
         self.daouser.deleteAll()
 
     @classmethod

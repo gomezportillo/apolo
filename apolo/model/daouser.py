@@ -3,10 +3,11 @@ import pymongo
 from model import user
 
 PRIMARY_KEY = 'email'
+COLLECTION_NAME = 'users'
 
 class DAOUser:
 
-    def __init__(self, MONGODB_URI, COLLECTION_NAME):
+    def __init__(self, MONGODB_URI):
         self.mongo_client = pymongo.MongoClient(MONGODB_URI)
         self.apolo_ddbb = self.mongo_client.get_database() # default ddbb as im using a sadxbox mlab account
         self.collection = self.apolo_ddbb[COLLECTION_NAME]

@@ -14,7 +14,6 @@ app = Flask(__name__)
 
 # MongoDB configuration
 MONGODB_URI = 'mongodb://user:user123@ds024548.mlab.com:24548/apolo-mongodb'
-COLLECTION_NAME = 'users'
 
 # DAO user
 daouser = DAOUser(MONGODB_URI, COLLECTION_NAME)
