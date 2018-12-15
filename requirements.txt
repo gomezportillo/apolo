@@ -2,4 +2,3 @@ Flask==1.0.2
 requests==2.20.0
 pymongo==3.7.2
 pytest==3.10.0
-gunicorn==19.9.0
