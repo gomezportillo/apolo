@@ -1,0 +1,25 @@
+---
+- hosts: all
+  become: yes
+  vars:
+    project_path: ~/apolo
+  tasks:
+    - name: Updating repositories
+      apt: update_cache=yes
+
+    - name: Installing git
+      apt: name=git state=present
+
+    - name: Installing python3
+      apt: name=python3 state=present
+
+    - name: Installing pip3
+      apt: name=python3-pip state=present
+
+    - name: Cloning Apolo repository
+      git:
+        repo: https://github.com/gomezportillo/apolo
+        dest: "{{ project_path }}"
+
+    - name: Installing Python dependecies
+      shell: "pip3 install -r {{ project_path }}/requirements.txt"
