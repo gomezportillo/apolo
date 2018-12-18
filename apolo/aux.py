@@ -5,12 +5,13 @@ import logging
 import pymongo
 import logging
 import datetime
+import shutil
 
 from model.user import User
 from model.daouser import DAOUser
 
 # Metadata
-VERSION = '4.1'
+VERSION = '5.0'
 
 server_info = {}
 server_info['version']      = VERSION
@@ -21,6 +22,10 @@ server_info['project']      = 'Apolo'
 
 
 # Log configuration
+if os.path.exists('logs'):
+    shutil.rmtree('logs')
+os.makedirs('logs')
+
 LOG_FILE = os.path.join('logs', 'apolo.log')
 
 f = open(LOG_FILE, 'w')
