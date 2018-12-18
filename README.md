@@ -176,3 +176,7 @@ MV: 23.96.18.95
 ## Hito 4 (Acopio)
 
 MV2: 13.79.23.106
+
+## Hito 5 (Vagrant)
+
+Despliegue Vagrant: 40.127.129.178
