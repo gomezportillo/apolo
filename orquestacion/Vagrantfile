@@ -1,17 +1,48 @@
+AZURE_TENANT_ID       = ENV['AZURE_TENANT_ID']
+AZURE_CLIENT_ID       = ENV['AZURE_CLIENT_ID']
+AZURE_CLIENT_SECRET   = ENV['AZURE_CLIENT_SECRET']
+AZURE_SUBSCRIPTION_ID = ENV['AZURE_SUBSCRIPTION_ID']
+
+SSH_KEY_PATH          = '~/SSH_APOLO/key'
+VM_LOCATION           = 'northeurope'
+VM_NAME               = 'apolovagrant'
+VM_RESOURCE_GROUP     = 'apolo_resource_group_Vagrant'
+VM_IMAGE              = 'Canonical:UbuntuServer:18.04-LTS:latest'
+VM_SIZE               = 'Standard_B1s'
+STORAGE_ACCOUNT_TYPE  = 'Standard_LRS'
+
+PLAYBOOK_NAME         = 'playbook.yml'
 
 Vagrant.configure('2') do |config|
 
-  config.vm.box = 'azure'
+  config.vm.define "pedroma" do |machine|
 
-  config.ssh.private_key_path = '~/SSH_APOLO/key'
+    machine.vm.box = 'azure'
 
-  config.vm.provider :azure do |azure, override|
+    machine.ssh.private_key_path = SSH_KEY_PATH
 
-    azure.tenant_id       = ENV['AZURE_TENANT_ID']
-    azure.client_id       = ENV['AZURE_CLIENT_ID']
-    azure.client_secret   = ENV['AZURE_CLIENT_SECRET']
-    azure.subscription_id = ENV['AZURE_SUBSCRIPTION_ID']
+    machine.vm.provider :azure do |azure, override|
 
+      # Azure configuration
+      azure.tenant_id       = AZURE_TENANT_ID
+      azure.client_id       = AZURE_CLIENT_ID
+      azure.client_secret   = AZURE_CLIENT_SECRET
+      azure.subscription_id = AZURE_SUBSCRIPTION_ID
+
+      # VM configuration
+      azure.location                = VM_LOCATION
+      azure.vm_name                 = VM_NAME
+      azure.resource_group_name     = VM_RESOURCE_GROUP
+      azure.vm_image_urn            = VM_IMAGE
+      azure.vm_size                 = VM_SIZE
+      azure.vm_storage_account_type = STORAGE_ACCOUNT_TYPE
+
+    end
+
+  end
+
+  config.vm.provision "ansible" do |ansible|
+      ansible.playbook = PLAYBOOK_NAME
   end
 
 end

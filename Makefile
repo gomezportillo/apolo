@@ -40,3 +40,6 @@ connect-azure:
 
 acopio:
 	cd acopio/ &&	chmod +x acopio.sh && bash acopio.sh
+
+vagrant:
+	cd orquestacion/ && vagrant up --provider=azure
