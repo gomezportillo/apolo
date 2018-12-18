@@ -45,11 +45,11 @@ En la [página oficial de GitHub de Azure](https://github.com/Azure/vagrant-azur
 
 4. Por último, ejecutamos `az account list --query "[?isDefault].id" -o tsv` para obtener el ID de suscripción de Azure.
 
-Ahora que ya tenemos todos los valores necesarios, y para no subirlos al repositorio, debemos exportarlos como variables de entorno para que el script de Vagrant pueda acceder a ellas. Para ello tenemos dos opciones; o bien ejecutar `export VARIABLE=value` para cada variable o hacer un _append_ en el archivo `/etc/environment` [referencia](https://askubuntu.com/questions/58814/how-do-i-add-environment-variables). En este caso se ha utilizado la segunda opción.
+Ahora que ya tenemos todos los valores necesarios, y para no subirlos al repositorio, debemos exportarlos como variables de entorno para que el script de Vagrant pueda acceder a ellas. Para ello tenemos dos opciones; o bien ejecutar `export VARIABLE=value` para cada variable o hacer un _append_ en el archivo `/etc/environment` ([referencia](https://askubuntu.com/questions/58814/how-do-i-add-environment-variables)). En este caso se ha utilizado la segunda opción.
 
 El nombre de las variables que necesitamos exportar dependen de cómo las queramos llamar en el script de Vagrant; en este caso se han denominado de la siguiente manera.
 
-```
+```bash
 AZURE_TENANT_ID=$tenant
 AZURE_CLIENT_ID=$appID
 AZURE_CLIENT_SECRET=$password
@@ -71,11 +71,55 @@ Para poder provisionar con Ansible desde Vagrant es necesario tenerlo instalado,
 
 # Vagrantfile
 
-En sección se explican los parámetros utilizados a la hora de crear el vagrantfile.
+El Vagrantfile completo puede verse [en el siguiente enlace](Vagrantfile).
 
-A la hora de definir el nombre de la máquina virtual es **necesario** que coincida a la expresión regular `^[a-z][a-z0-9-]{1,61}[a-z0-9]$`. Esto se puede comprobar de un modo simple, por ejemplo, con el sitio web [Rubular](http://rubular.com/). Se ha includo [una imágene de su funcionamiento](img/rubular.png).
+Lo primero que se hice, tras crear las variables explicadas anteriormente, fue parametrizar el resto de variables de la máquina a crear del siguiente modo, donde
 
-⚠️ TODO ⚠️
+* La localización es la elegida en el hito anterior por medio de pruebas de velocidad.
+* La imagen del sistema operativo es un Ubuntu 18.04 LTS.
+* El tamaño y el tipo de disco duro son los más baratos ofrecidos por Azure.
+
+```ruby
+VM_LOCATION           = 'northeurope'
+VM_NAME               = 'vagrantvm'
+VM_RESOURCE_GROUP     = 'apolo_resource_group'
+VM_NETWORK_SEC_GROUP  = 'apolo_network_security_group'
+VM_IMAGE              = 'Canonical:UbuntuServer:18.04-LTS:latest'
+VM_SIZE               = 'Standard_B1s'
+STORAGE_ACCOUNT_TYPE  = 'Standard_LRS'
+PLAYBOOK_NAME         = 'playbook.yml'
+SSH_KEY_PATH          = '~/SSH_APOLO/key'
+```
+
+A la hora de definir el nombre de la máquina virtual es **necesario** que coincida a la expresión regular `^[a-z][a-z0-9-]{1,61}[a-z0-9]$`. Esto se puede comprobar de un modo simple, por ejemplo, con el sitio web [Rubular](http://rubular.com/). Se ha incluido [una imagen de su funcionamiento](img/rubular.png).
+
+Una vez definidas las variables, el resto del Vagrantfile quedaría del siguiente modo
+
+```ruby
+Vagrant.configure('2') do |config|
+
+	config.vm.define "pedroma" do |machine|
+
+		machine.vm.box = 'azure'
+
+		machine.ssh.private_key_path = SSH_KEY_PATH
+
+		machine.vm.provider :azure do |azure, override|
+
+			# Asignación de variables omitidas por claridad
+
+		end
+
+	end
+
+	config.vm.provision "ansible" do |ansible|
+  	ansible.playbook = PLAYBOOK_NAME
+	end
+
+end
+```
+
+Las últimas líneas sirven para provisionar la máquina virtual por medio del playbook de Ansible.
 
 ## Ejecución
 
@@ -83,7 +127,7 @@ Una vez que ya está todo configurado podemos ejecutar Vagrant, para lo que bast
 
 `vagrant up --provider=azure`.
 
-Ahora podemos acceder a las máquinas creadas ejecutando `vagrant ssh <name>`, privisionarlas ejecutando `vagrant provision <name>` o destruirlas ejecutando `vagrant destroy <name>`.
+Ahora podemos acceder a las máquinas creadas ejecutando `vagrant ssh <name>`, provisionarlas ejecutando `vagrant provision <name>` o eliminarlas ejecutando `vagrant destroy <name>`.
 
 ## Salida por consola
 

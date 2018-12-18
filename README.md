@@ -4,7 +4,7 @@
 
 ## Tabla de contenidos
 
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:undefined orderedList:0 -->
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [Build status](#build-status)
 - [Descripción del problema](#descripcin-del-problema)
@@ -19,13 +19,15 @@
 - [Provisionamiento](#provisionamiento)
 	- [Ansible](#ansible)
 	- [Testing de Ansible](#testing-de-ansible)
-- [Acopio](#acopio)
+- [Autmatización de creación de VM con el CLI de Azure](#autmatización-de-creación-de-vm-con-el-cli-de-azure)
+- [Orquestación con Vagrant](#orquestación-con-vagrant)
 - [Funcionalidad implementada](#funcionalidad-implementada)
 	- [Ejemplo de ejecución práctico](#ejemplo-de-ejecucin-prctico)
 - [URLs de desgliegue](#urls-de-desgliegue)
 	- [Hito 2 (Heroku)](#hito-2-heroku)
 	- [Hito 3 (Azure)](#hito-3-azure)
 	- [Hito 4 (Acopio)](#hito-4-acopio)
+	- [Hito 5 (Vagrant)](#hito-5-vagrant)
 
 <!-- /TOC -->
 
@@ -77,8 +79,8 @@ Cada hito tiene un link a su página en GitHub.
 * [x] [Hito 2](https://github.com/gomezportillo/apolo/milestone/2): Crear un microservicio y desplegarlo en Travis y Heroku automáticamente tras pasar los tests.
 * [x] [Hito 3](https://github.com/gomezportillo/apolo/milestone/3): Provisionamiento con Ansible
 * [x] [Hito 4](https://github.com/gomezportillo/apolo/milestone/5): Automatización de creación de VM con el CLI de Azure
-* [ ] [Hito 5](https://github.com/gomezportillo/apolo/milestone/6): Orquestación con Vagrant
-* [ ] [Hito 5](https://github.com/gomezportillo/apolo/milestone/6): Docker
+* [x] [Hito 5](https://github.com/gomezportillo/apolo/milestone/6): Orquestación con Vagrant
+* [ ] [Hito 6](https://github.com/gomezportillo/apolo/milestone/6): Contenedores Docker
 
 # Despliegue
 
@@ -127,13 +129,17 @@ Una documentación más extensa y detallada de este hito puede verse [en el sigu
 
 Yo he probado el proyecto de [@fpeiro](https://github.com/fpeiro) y este proyecto ha sido probado por [@xenahort](https://github.com/xenahort). En el [README de Ansible](provision/) se incluye más detalles, así como los pantallazos generados tras su ejecución.
 
-# Acopio
+# Autmatización de creación de VM con el CLI de Azure
 
-La documentación del hito 4 referente a la automatización de la creación de máquinas virtuales con el cliente de línea de comandos de Azure puede verse en el [siguiente enlace](acopio/README.md).
+La documentación del **hito 4** referente a la automatización de la creación de máquinas virtuales con el cliente de línea de comandos de Azure puede verse en el [siguiente enlace](acopio/README.md).
+
+# Orquestación con Vagrant
+
+La documentación del **hito 5** correspondiente a la orquestación de máquinas virtuales con Vagrant puede verse [en el siguiente enlace](orquestacion/README.md).
 
 # Funcionalidad implementada
 
-Actualmente **Apolo** atiende las siguientes peticiones HTTP con los parámetros `{'email': $CORREO, 'instrument': $INSTRUMENTO}` y devuelve las respuestas en formato JSON. Además, ofrece un manejo de las excepciones `404` y `405`  de HTTP e indica a través del código `200` que todo ha ido correctamente.
+Actualmente **Apolo** atiende las siguientes peticiones HTTP con los parámetros `{'email': $CORREO, 'instrument': $INSTRUMENTO}` y devuelve las respuestas en formato JSON. Además, ofrece un manejo de las excepciones `404` y `405` de HTTP e indica a través del código `200` que todo ha ido correctamente.
 
 * **PUT** en _/users_ guarda en la base de datos el usuario especificado en los parámetros.
 * **POST** en _/users_ actualiza el usuario indicado en los parámetros.
@@ -141,6 +147,7 @@ Actualmente **Apolo** atiende las siguientes peticiones HTTP con los parámetros
 * **DELETE** en _/users_ borra el usuario indicado en los parámetros.
 * **GET** en _/users/all_ devuelve todos los usuario del sistema.
 * **DELETE** en _/users/all_ elimina todos los usuarios del sistema.
+* **GET** en _/log_ devolverá el log completo del servidor, que incluye la fecha de despliegue, los errores y las órdenes de creación y borrado de usuarios.
 
 Esto puede verse con más profundidad en el [propio servidor](apolo/server.py).
 
@@ -149,19 +156,19 @@ Esto puede verse con más profundidad en el [propio servidor](apolo/server.py).
 La orden HTTP,
 
 ```
-      PUT/ {'email':'jhon@doe', 'insturment', 'guitar'} en https://apolo-cc.herokuapp.com/users
+PUT/ {'email':'jhon@doe', 'insturment', 'guitar'} en https://apolo-cc.herokuapp.com/users
 ```
 
 Devolverá la cadena JSON,
 
 ```
-      {'status': 'SUCCESS', 'message': 'On inserting usser with email jhon@doe'}
+{'status': 'SUCCESS', 'message': 'On inserting usser with email jhon@doe'}
 ```
 
 Siempre y cuando dicho email no exista previamente, ya que es la clave primaria o _index_ en MongoDB. En ese caso devolvería,
 
 ```
-      {'status': 'EMAIL_ALREADY_EXISTS', 'message': 'On inserting usser with email jhon@doe'}
+{'status': 'EMAIL_ALREADY_EXISTS', 'message': 'On inserting usser with email jhon@doe'}
 ```
 # URLs de desgliegue
 
