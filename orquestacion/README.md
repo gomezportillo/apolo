@@ -12,8 +12,10 @@
 	- [Tabla de contenidos](#tabla-de-contenidos)
 - [Instalación de Vagrant](#instalacin-de-vagrant)
 	- [Integración con Azure](#integracin-con-azure)
+	- [Integración con Ansible](#integracin-con-ansible)
 - [Vagrantfile](#vagrantfile)
 	- [Ejecución](#ejecucin)
+	- [Salida por consola](#salida-por-consola)
 
 <!-- /TOC -->
 
@@ -43,9 +45,9 @@ En la [página oficial de GitHub de Azure](https://github.com/Azure/vagrant-azur
 
 4. Por último, ejecutamos `az account list --query "[?isDefault].id" -o tsv` para obtener el ID de suscripción de Azure.
 
-Ahora que ya tenemos todos los valores necesarios, y para no subirlos al repositorio, debemos exportarlos como variables de entorno para que el script de Vagrant pueda acceder a ellas. Para ello tenemos dos opciones, o bien ejecutar `export VARIABLE=value` para cada variable o hacer un _append_ en el archivo `/etc/environment` [referencia](https://askubuntu.com/questions/58814/how-do-i-add-environment-variables).
+Ahora que ya tenemos todos los valores necesarios, y para no subirlos al repositorio, debemos exportarlos como variables de entorno para que el script de Vagrant pueda acceder a ellas. Para ello tenemos dos opciones; o bien ejecutar `export VARIABLE=value` para cada variable o hacer un _append_ en el archivo `/etc/environment` [referencia](https://askubuntu.com/questions/58814/how-do-i-add-environment-variables). En este caso se ha utilizado la segunda opción.
 
-El nombre de las variables que necesitamos exportar dependen de cómo las queramos llamar en el script de Vagrant; en este caso se han denominado de la sigueinte manera.
+El nombre de las variables que necesitamos exportar dependen de cómo las queramos llamar en el script de Vagrant; en este caso se han denominado de la siguiente manera.
 
 ```
 AZURE_TENANT_ID=$tenant
@@ -63,7 +65,15 @@ vagrant plugin install vagrant-azure
 
 ![Box and plugin](img/box_and_plugin.png)
 
+## Integración con Ansible
+
+Para poder provisionar con Ansible desde Vagrant es necesario tenerlo instalado, para lo cual basta con seguir los pasos indicados el en [hito 3](https://github.com/gomezportillo/apolo/tree/master/provision).
+
 # Vagrantfile
+
+En sección se explican los parámetros utilizados a la hora de crear el vagrantfile.
+
+A la hora de definir el nombre de la máquina virtual es **necesario** que coincida a la expresión regular `^[a-z][a-z0-9-]{1,61}[a-z0-9]$`. Esto se puede comprobar de un modo simple, por ejemplo, con el sitio web [Rubular](http://rubular.com/). Se ha includo [una imágene de su funcionamiento](img/rubular.png).
 
 ⚠️ TODO ⚠️
 
@@ -73,6 +83,10 @@ Una vez que ya está todo configurado podemos ejecutar Vagrant, para lo que bast
 
 `vagrant up --provider=azure`.
 
-Ahora podemos acceder a las máquinas creadas ejecutando
+Ahora podemos acceder a las máquinas creadas ejecutando `vagrant ssh <name>`, privisionarlas ejecutando `vagrant provision <name>` o destruirlas ejecutando `vagrant destroy <name>`.
 
-`vagrant ssh`.
+## Salida por consola
+
+Se adjunta una captura de pantalla del resultado de la ejecución de Vagrant.
+
+![Vagrant ouput](img/vagrant-output.png)
