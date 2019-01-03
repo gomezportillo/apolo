@@ -1,15 +1,13 @@
 # Source https://chrisyeh96.github.io/2017/08/08/definitive-guide-python-imports.html#basic-definition
-# This allows us to perform relative imports
+# This allows to perform relative imports
 import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
 
 import unittest
-from model.daouser import DAOUser
-from model.user import User
+from apolo.model.daouser import DAOUser
+from apolo.model.user import User
 
-
-COLLECTION_NAME = 'test'
 
 class TestDAO(unittest.TestCase):
 

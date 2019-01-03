@@ -96,8 +96,8 @@ Para conseguir la integración con Travis-CI y Heroku, tras añadir el proyecto 
 
 El archivo de configuración de Travis-CI puede verse [aquí](.travis.yml) y los tests,
 
-* Del DAO del usuario, [aquí](apolo/test/test_daouser.py).
-* Del servidor, [aquí](apolo/test/test_server.py).
+* Del DAO del usuario, [aquí](test/test_daouser.py).
+* Del servidor, [aquí](test/test_server.py).
 
 Dicho archivo de configuración contiene la rama que será testeada, el lenguaje de programación y su versión, las dependencias del proyecto (guardadas en el archivo [requirements.txt](requirements.txt)), la ruta hacia los tests a ejecutar y la información necesaria para desplegar la aplicación en Heroku una vez pasados los tests.
 
@@ -136,6 +136,10 @@ La documentación del **hito 4** referente a la automatización de la creación 
 # Orquestación con Vagrant
 
 La documentación del **hito 5** correspondiente a la orquestación de máquinas virtuales con Vagrant puede verse [en el siguiente enlace](orquestacion/README.md).
+
+## Testing de Vagrant
+
+Yo he probado el proyecto de [@fpeiro](https://github.com/fpeiro) y este proyecto ha sido probado por [@xenahort](https://github.com/xenahort). En el [README de Vagrant](orquestacion/README.md) se incluye más detalles, así como los pantallazos generados tras las ejecuciones.
 
 # Funcionalidad implementada
 
