@@ -141,13 +141,13 @@ La documentación del **hito 5** correspondiente a la orquestación de máquinas
 
 Actualmente **Apolo** atiende las siguientes peticiones HTTP con los parámetros `{'email': $CORREO, 'instrument': $INSTRUMENTO}` y devuelve las respuestas en formato JSON. Además, ofrece un manejo de las excepciones `404` y `405` de HTTP e indica a través del código `200` que todo ha ido correctamente.
 
-* **PUT** en _/users_ guarda en la base de datos el usuario especificado en los parámetros.
-* **POST** en _/users_ actualiza el usuario indicado en los parámetros.
-* **GET** en _/users_ obtiene el usuario indicado a través de los parámetros.
-* **DELETE** en _/users_ borra el usuario indicado en los parámetros.
-* **GET** en _/users/all_ devuelve todos los usuario del sistema.
-* **DELETE** en _/users/all_ elimina todos los usuarios del sistema.
-* **GET** en _/log_ devolverá el log completo del servidor, que incluye la fecha de despliegue, los errores y las órdenes de creación y borrado de usuarios.
+* **PUT** en _/rest/users_ guarda en la base de datos el usuario especificado en los parámetros.
+* **POST** en _/rest/users_ actualiza el usuario indicado en los parámetros.
+* **GET** en _/rest/users_ obtiene el usuario indicado a través de los parámetros.
+* **DELETE** en _/rest/users_ borra el usuario indicado en los parámetros.
+* **GET** en _/rest/users/all_ devuelve todos los usuario del sistema.
+* **DELETE** en _/rest/users/all_ elimina todos los usuarios del sistema.
+* **GET** en _/rest/log_ devolverá el log completo del servidor, que incluye la fecha de despliegue, los errores y las órdenes de creación y borrado de usuarios.
 
 Esto puede verse con más profundidad en el [propio servidor](apolo/server.py).
 

@@ -3,6 +3,7 @@
 import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
+
 import unittest
 from model.daouser import DAOUser
 from model.user import User
@@ -18,15 +19,18 @@ class TestDAO(unittest.TestCase):
         self.daouser = DAOUser(MONGODB_URI)
         self.daouser.deleteAll()
 
+
     @classmethod
     def tearDownClass(self):
         self.daouser.deleteAll()
+
 
     def test_empty(self):
         self.daouser.deleteAll()
 
         users = self.daouser.readAll()
         self.assertEqual(len(users), 0)
+
 
     def test_insert(self):
         self.daouser.deleteAll()
@@ -35,6 +39,7 @@ class TestDAO(unittest.TestCase):
         self.daouser.insert(u)
         result = self.daouser.readAll()
         self.assertEqual(1, len(result))
+
 
     def test_delete(self):
         self.daouser.deleteAll()
@@ -45,6 +50,7 @@ class TestDAO(unittest.TestCase):
         result = self.daouser.readAll()
         self.assertEqual(0, len(result))
 
+
     def test_find(self):
         self.daouser.deleteAll()
 
@@ -52,6 +58,7 @@ class TestDAO(unittest.TestCase):
         self.daouser.insert(u)
         result = self.daouser.find(u)
         self.assertEqual(u.toDict(), result)
+
 
     def test_update(self):
         self.daouser.deleteAll()
@@ -65,6 +72,7 @@ class TestDAO(unittest.TestCase):
         result = self.daouser.find(u2)
 
         self.assertEqual(u1.toDict(), result)
+
 
 if __name__ == '__main__':
     unittest.main()

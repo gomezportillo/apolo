@@ -24,7 +24,7 @@ def log():
     return Response(file.read(), status=200, mimetype='application/json')
 
 
-@app.route('/users', methods=['PUT'])
+@app.route('/rest/users', methods=['PUT'])
 def insert():
     new_user = parse_arguments_to_user( request.form )
     status = daouser.insert( new_user )
@@ -38,7 +38,7 @@ def insert():
     return Response(json.dumps(result), status=200, mimetype='application/json')
 
 
-@app.route('/users', methods=['POST'])
+@app.route('/rest/users', methods=['POST'])
 def update():
     user = parse_arguments_to_user( request.form )
     status = daouser.update(user)
@@ -53,7 +53,7 @@ def update():
 
 
 
-@app.route('/users', methods=['DELETE'])
+@app.route('/rest/users', methods=['DELETE'])
 def delete():
     user = parse_arguments_to_user( request.form )
     status = daouser.delete(user)
@@ -67,7 +67,7 @@ def delete():
     return Response(json.dumps(result), status=200, mimetype='application/json')
 
 
-@app.route('/users',  methods=['GET'])
+@app.route('/rest/users',  methods=['GET'])
 def find():
     email = str(request.form['email'])
     instrument = str(request.form['instrument'])
@@ -95,13 +95,13 @@ def find():
     return Response(json.dumps(result), status=200, mimetype='application/json')
 
 
-@app.route('/users/all', methods=['GET'])
+@app.route('/rest/users/all', methods=['GET'])
 def readall():
     users = daouser.readAll()
     return Response(json.dumps(users), status=200, mimetype='application/json')
 
 
-@app.route('/users/all', methods=['DELETE'])
+@app.route('/rest/users/all', methods=['DELETE'])
 def deleteAll():
     status = daouser.deleteAll()
 
