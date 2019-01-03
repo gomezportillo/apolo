@@ -56,8 +56,8 @@ class DAOUser:
         return users
 
 
-    def delete(self, user):
-        criteria = {'email' : user.email}
+    def delete(self, email):
+        criteria = {'email' : email}
 
         try:
             result = self.collection.delete_one(criteria)
@@ -76,12 +76,8 @@ class DAOUser:
         return 'SUCCESS'
 
 
-    def find(self, user):
-        criteria = {}
-        if user.email != '':
-            criteria['email'] = user.email
-        if user.instrument != '':
-            criteria['instrument'] = user.instrument
+    def find(self, email):
+        criteria = {'email' : email}
 
         cursor = self.collection.find( criteria )
 

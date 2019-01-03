@@ -21,7 +21,7 @@ def about():
 @app.route('/log', methods=['GET'])
 def log():
     file = open(LOG_FILE, 'r')
-    return Response(file.read(), status=200, mimetype='application/json')
+    return Response(file.read(), status=200, mimetype='text/plain')
 
 
 @app.route('/rest/users', methods=['PUT'])
@@ -30,7 +30,7 @@ def insert():
     status = DAOUser.instance().insert( new_user )
 
     result = {}
-    result['status'] = status
+    result['status']  = status
     result['message'] = 'On adding user with email {} '.format(new_user.email)
 
     app.logger.info( result )
@@ -44,7 +44,7 @@ def update():
     status = DAOUser.instance().update(user)
 
     result = {}
-    result['status'] = status
+    result['status']  = status
     result['message'] = 'On updating user with email {} '.format(user.email)
 
     app.logger.info( result )
@@ -52,43 +52,30 @@ def update():
     return Response(json.dumps(result), status=200, mimetype='application/json')
 
 
-@app.route('/rest/users', methods=['DELETE'])
-def delete():
-    user = parse_arguments_to_user( request.form )
-    status = DAOUser.instance().delete(user)
+@app.route('/rest/users/<email>', methods=['DELETE'])
+def delete(email):
+    status = DAOUser.instance().delete( email )
 
     result = {}
-    result['status'] = status
-    result['message'] = 'On deleting user with email {} '.format(user.email)
+    result['status']  = status
+    result['message'] = 'On deleting user with email {} '.format( email )
 
     app.logger.info( result )
 
     return Response(json.dumps(result), status=200, mimetype='application/json')
 
 
-@app.route('/rest/users',  methods=['GET'])
-def find():
-    email = str(request.form['email'])
-    instrument = str(request.form['instrument'])
+@app.route('/rest/users/<email>',  methods=['GET'])
+def find(email):
+    users = DAOUser.instance().find( email )
 
-    if email == 'None':
-        email = ''
-    if instrument == 'None':
-        instrument = ''
-
-    user = User(email, instrument)
-
-    status = 'SUCCESS'
-    if user.empty():
-        status = 'USER_EMPTY'
+    if not users:
+        status = 'USER_NOT_FOUND'
     else:
-        users = DAOUser.instance().find(user)
+        status = 'SUCCESS'
 
-    users_json = ''
-    for u in users:
-        users_json += json.dumps(u)
     result = {}
-    result['status'] = status
+    result['status']  = status
     result['message'] = users
 
     return Response(json.dumps(result), status=200, mimetype='application/json')
@@ -105,7 +92,7 @@ def deleteAll():
     status = DAOUser.instance().deleteAll()
 
     result = {}
-    result['status'] = status
+    result['status']  = status
     result['message'] = 'On deleting all users'
 
     app.logger.info( result )
@@ -115,34 +102,32 @@ def deleteAll():
 
 @app.errorhandler(404)
 def not_found(error=None):
-    msg = {}
-    msg['status'] = 404
-    msg['message'] = 'URL {} not found'.format(request.url)
+    message = {}
+    message['status']  = 404
+    message['message'] = 'URL {} not found'.format(request.url)
 
-    app.logger.info( msg )
+    app.logger.info( message )
 
-    return Response(json.dumps(msg), status=404, mimetype='application/json')
+    return Response(json.dumps(message), status=404, mimetype='application/json')
 
 
 @app.errorhandler(405)
 def not_allowed(error=None):
-    msg = {}
-    msg['status'] = 405
-    msg['message'] = 'URL {} not allowed from {} HTTP method'.format(request.url, request.method)
+    message = {}
+    message['status']  = 405
+    message['message'] = 'URL {} not allowed from {} HTTP method'.format(request.url, request.method)
 
-    app.logger.info( msg )
+    app.logger.info( message )
 
-    return Response(json.dumps(msg), status=405, mimetype='application/json')
+    return Response(json.dumps(message), status=405, mimetype='application/json')
 
 
 def parse_arguments_to_user(form):
-    email = str(request.form['email'])
-    instrument = str(request.form['instrument'])
+    unparsed_email      = request.form['email']
+    unparsed_instrument = request.form['instrument']
 
-    if email == 'None':
-        email = 'jhon@doe.com'
-    if instrument == 'None':
-        instrument = 'triangle'
+    email      = str(unparsed_email) if unparsed_email else 'jhon@doe.com'
+    instrument = str(unparsed_instrument) if unparsed_instrument else 'triangle'
 
     return User(email, instrument)
 

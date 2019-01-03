@@ -44,7 +44,7 @@ class TestDAO(unittest.TestCase):
 
         u = User("delete@user", "guitar")
         DAOUser.instance().insert(u)
-        resp = DAOUser.instance().delete(u)
+        resp = DAOUser.instance().delete( u.email )
         result = DAOUser.instance().readAll()
         self.assertEqual( len(result), 0 )
 
@@ -54,7 +54,7 @@ class TestDAO(unittest.TestCase):
 
         u = User("find@user", "guitar")
         DAOUser.instance().insert(u)
-        result = DAOUser.instance().find(u)
+        result = DAOUser.instance().find( u.email )
         self.assertEqual( [u.toDict()], result )
 
 
@@ -62,12 +62,12 @@ class TestDAO(unittest.TestCase):
         DAOUser.instance().deleteAll()
 
         u1 = User("update@user", "guitar")
-        DAOUser.instance().insert(u1)
+        DAOUser.instance().insert( u1 )
         u1.instrument = "bass"
-        DAOUser.instance().update(u1)
+        DAOUser.instance().update( u1 )
 
         u2 = User(u1.email, "")
-        result = DAOUser.instance().find(u2)
+        result = DAOUser.instance().find( u2.email )
 
         self.assertEqual( [u1.toDict()] , result)
 

@@ -49,7 +49,7 @@ class TestServer(unittest.TestCase):
 
     def test_find_is_up(self):
         user={'email':'jhon@doe', 'instrument': 'guitar'}
-        response = requests.get( self.URL_USERS, data=user )
+        response = requests.get( '{}/{}'.format( self.URL_USERS, user['email'] ) )
         self.assertEqual( response.status_code, 200 )
 
         requests.delete( self.URL_USERS_ALL )
@@ -58,7 +58,7 @@ class TestServer(unittest.TestCase):
     def test_find_user(self):
         user={'email':'jhon@doe', 'instrument': 'guitar'}
         requests.put( self.URL_USERS, data=user )
-        response = requests.get( self.URL_USERS, data=user )
+        response = requests.get( '{}/{}'.format( self.URL_USERS, user['email'] ) )
         response_json = response.json()
         response_json['message']
         self.assertEqual( [user], response_json['message'] )
@@ -79,7 +79,7 @@ class TestServer(unittest.TestCase):
         requests.put(self.URL_USERS, data=user)
         user['instrument'] = 'bass'
         requests.post(self.URL_USERS, data=user)
-        response = requests.get(self.URL_USERS, data=user)
+        response = requests.get( '{}/{}'.format( self.URL_USERS, user['email'] ) )
         response_json = response.json()
         self.assertEqual( [user], response_json['message'] )
 
@@ -88,15 +88,15 @@ class TestServer(unittest.TestCase):
 
     def test_delete_is_up(self):
         user={'email':'jhon@doe', 'instrument': 'guitar'}
-        response = requests.delete( self.URL_USERS, data=user )
+        response = requests.delete( '{}/{}'.format( self.URL_USERS, user['email'] ) )
         self.assertEqual( response.status_code, 200 )
 
 
     def test_delete_user(self):
         user={'email':'jhon@doe', 'instrument': 'guitar'}
         requests.put( self.URL_USERS, data=user )
-        response = requests.delete( self.URL_USERS, data=user )
-        response = requests.get( self.URL_USERS, data=user )
+        response = requests.delete( '{}/{}'.format( self.URL_USERS, user['email'] ) )
+        response = requests.get(    '{}/{}'.format( self.URL_USERS, user['email'] ) )
         response_json = response.json()
         self.assertEqual( [], response_json['message'] )
 
