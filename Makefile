@@ -16,7 +16,9 @@ install:
 	$(PIP) install -r requirements.txt
 
 install-ansible:
-	$(PIP) install ansible
+	sudo apt-get install software-properties-common
+	sudo apt-add-repository --yes --update ppa:ansible/ansible
+	sudo apt-get install ansible
 
 install-azure:
 	sudo apt-get install apt-transport-https lsb-release software-properties-common -y

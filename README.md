@@ -186,4 +186,4 @@ MV2: 13.79.23.106
 
 ## Hito 5 (Vagrant)
 
-Despliegue Vagrant: 40.127.129.178
+Despliegue Vagrant: 40.127.169.118

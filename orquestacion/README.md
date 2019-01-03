@@ -16,6 +16,9 @@
 - [Vagrantfile](#vagrantfile)
 	- [Ejecución](#ejecucin)
 	- [Salida por consola](#salida-por-consola)
+- [Testing](#testing)
+	- [Testeo de @xenahort de este proyecto](#testeo-de-xenahort-de-este-proyecto)
+	- [Testeo del proyecto de @fpeiro](#testeo-del-proyecto-de-fpeiro)
 
 <!-- /TOC -->
 
@@ -76,7 +79,7 @@ El Vagrantfile completo puede verse [en el siguiente enlace](Vagrantfile).
 Lo primero que se hice, tras crear las variables explicadas anteriormente, fue parametrizar el resto de variables de la máquina a crear del siguiente modo, donde
 
 * La localización es la elegida en el hito anterior por medio de pruebas de velocidad.
-* La imagen del sistema operativo es un Ubuntu 18.04 LTS.
+* La imagen del sistema operativo es un Ubuntu 18.04 LTS, siguiendo con la elección justificada en los hitos anteriores.
 * El tamaño y el tipo de disco duro son los más baratos ofrecidos por Azure.
 
 ```ruby
@@ -119,7 +122,7 @@ Vagrant.configure('2') do |config|
 end
 ```
 
-Las últimas líneas sirven para provisionar la máquina virtual por medio del playbook de Ansible.
+Las últimas líneas sirven para provisionar la máquina virtual por medio del playbook de Ansible lo que, aunque no es necesario para este hito, sí es conveniente ya que evita tener que hacerlo posteriormente de manera manual.
 
 ## Ejecución
 
@@ -134,3 +137,15 @@ Ahora podemos acceder a las máquinas creadas ejecutando `vagrant ssh <name>`, p
 Se adjunta una captura de pantalla del resultado de la ejecución de Vagrant.
 
 ![Vagrant ouput](img/vagrant-output.png)
+
+# Testing
+
+Este proyecto ha sido testeado por [@xenahort](https://github.com/xenahort) y yo he testeado el proyecto de [@fpeiro](https://github.com/xenahort). A continuación se presentan los pantallazos generados de dichas ejecuciones.
+
+## Testeo de @xenahort de este proyecto
+
+![xenahort](img/vagrant-xenahort.png)
+
+## Testeo del proyecto de @fpeiro
+
+![fpeiro](img/vagrant-fpeiro.png)
