@@ -1,11 +1,11 @@
 # The aim of this file is to clarify the server code holding variables not related to it
 
-import os
 import logging
 import pymongo
 import logging
 import datetime
 import shutil
+import os
 
 from model.user import User
 from model.daouser import DAOUser
