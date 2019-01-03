@@ -1,6 +1,12 @@
+# Source https://chrisyeh96.github.io/2017/08/08/definitive-guide-python-imports.html#basic-definition
+# This allows us to perform relative imports
+import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+
 import unittest
 from model.daouser import DAOUser
 from model.user import User
+
 
 MONGODB_URI = 'mongodb://user:user123@ds024548.mlab.com:24548/apolo-mongodb'
 COLLECTION_NAME = 'test'

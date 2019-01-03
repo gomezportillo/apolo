@@ -9,8 +9,8 @@ run:
 	$(PYTHON) apolo/server.py
 
 test:
-	$(PYTEST) apolo/test_daouser.py
-	$(PYTEST) apolo/test_server.py
+	$(PYTEST) apolo/test/test_daouser.py
+	$(PYTEST) apolo/test/test_server.py
 
 install:
 	$(PIP) install -r requirements.txt
