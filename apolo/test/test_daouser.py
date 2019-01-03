@@ -55,7 +55,7 @@ class TestDAO(unittest.TestCase):
         u = User("find@user", "guitar")
         DAOUser.instance().insert(u)
         result = DAOUser.instance().find(u)
-        self.assertEqual( u.toDict(), result )
+        self.assertEqual( [u.toDict()], result )
 
 
     def test_update(self):
@@ -69,7 +69,7 @@ class TestDAO(unittest.TestCase):
         u2 = User(u1.email, "")
         result = DAOUser.instance().find(u2)
 
-        self.assertEqual(u1.toDict(), result)
+        self.assertEqual( [u1.toDict()] , result)
 
 
 if __name__ == '__main__':

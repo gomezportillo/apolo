@@ -86,7 +86,7 @@ def find():
 
     users_json = ''
     for u in users:
-        users_json += u
+        users_json += json.dumps(u)
     result = {}
     result['status'] = status
     result['message'] = users

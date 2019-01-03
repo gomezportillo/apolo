@@ -61,7 +61,7 @@ class TestServer(unittest.TestCase):
         response = requests.get( self.URL_USERS, data=user )
         response_json = response.json()
         response_json['message']
-        self.assertEqual(user, response_json['message'])
+        self.assertEqual( [user], response_json['message'] )
 
         requests.delete( self.URL_USERS_ALL )
 
@@ -81,7 +81,7 @@ class TestServer(unittest.TestCase):
         requests.post(self.URL_USERS, data=user)
         response = requests.get(self.URL_USERS, data=user)
         response_json = response.json()
-        self.assertEqual(user, response_json['message'])
+        self.assertEqual( [user], response_json['message'] )
 
         requests.delete( self.URL_USERS_ALL )
 
@@ -98,7 +98,7 @@ class TestServer(unittest.TestCase):
         response = requests.delete( self.URL_USERS, data=user )
         response = requests.get( self.URL_USERS, data=user )
         response_json = response.json()
-        self.assertEqual({}, response_json['message'])
+        self.assertEqual( [], response_json['message'] )
 
         requests.delete( self.URL_USERS_ALL )
 

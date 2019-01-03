@@ -3,8 +3,8 @@ import pymongo
 from model import user
 from auxiliary.singleton import Singleton
 
-MONGODB_URI = 'mongodb://user:user123@ds024548.mlab.com:24548/apolo-mongodb'
-PRIMARY_KEY = 'email'
+MONGODB_URI      = 'mongodb://user:user123@ds024548.mlab.com:24548/apolo-mongodb'
+PRIMARY_KEY      = 'email'
 COLLECTION_USERS = 'users'
 
 
@@ -13,8 +13,8 @@ class DAOUser:
 
     def __init__(self):
         self.mongo_client = pymongo.MongoClient( MONGODB_URI )
-        self.apolo_ddbb = self.mongo_client.get_database() # default ddbb as im using a sadxbox mlab account
-        self.collection = self.apolo_ddbb[ COLLECTION_USERS ]
+        self.apolo_ddbb   = self.mongo_client.get_database() # default ddbb as im using a sadxbox mlab account
+        self.collection   = self.apolo_ddbb[ COLLECTION_USERS ]
 
         self.set_up_ddbb()
 
@@ -85,11 +85,11 @@ class DAOUser:
 
         cursor = self.collection.find( criteria )
 
-        found_users = {}
+        found_users = []
         for doc in cursor:
             try:
-                found_users['email'] = doc['email']
-                found_users['instrument'] = doc['instrument']
+                user = {'email': doc['email'], 'instrument': doc['instrument']}
+                found_users.append( user )
             except KeyError:
                 pass
 
