@@ -11,7 +11,7 @@ from model.user import User
 from model.daouser import DAOUser
 
 # Metadata
-VERSION = '5.0'
+VERSION = '5.1'
 
 server_info = {}
 server_info['version']      = VERSION

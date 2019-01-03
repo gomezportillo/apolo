@@ -1,4 +1,4 @@
-from aux import *
+from auxiliary import *
 
 from flask import Flask
 from flask import request
