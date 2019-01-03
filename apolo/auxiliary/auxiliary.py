@@ -35,11 +35,3 @@ f.write( "Server started on {}\n".format( datetime.datetime.now() ))
 f.close()
 
 logging.basicConfig(filename=LOG_FILE, level=logging.DEBUG)
-
-
-# MongoDB configuration
-MONGODB_URI = 'mongodb://user:user123@ds024548.mlab.com:24548/apolo-mongodb'
-
-
-# DAO user
-daouser = DAOUser( MONGODB_URI )

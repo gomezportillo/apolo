@@ -9,67 +9,65 @@ from model.daouser import DAOUser
 from model.user import User
 
 
-MONGODB_URI = 'mongodb://user:user123@ds024548.mlab.com:24548/apolo-mongodb'
 COLLECTION_NAME = 'test'
 
 class TestDAO(unittest.TestCase):
 
     @classmethod
     def setUpClass(self):
-        self.daouser = DAOUser(MONGODB_URI)
-        self.daouser.deleteAll()
+        DAOUser.instance().deleteAll()
 
 
     @classmethod
     def tearDownClass(self):
-        self.daouser.deleteAll()
+        DAOUser.instance().deleteAll()
 
 
     def test_empty(self):
-        self.daouser.deleteAll()
+        DAOUser.instance().deleteAll()
 
-        users = self.daouser.readAll()
-        self.assertEqual(len(users), 0)
+        users = DAOUser.instance().readAll()
+        self.assertEqual( len(users), 0 )
 
 
     def test_insert(self):
-        self.daouser.deleteAll()
+        DAOUser.instance().deleteAll()
 
         u = User("insert@user", "guitar")
-        self.daouser.insert(u)
-        result = self.daouser.readAll()
-        self.assertEqual(1, len(result))
+        DAOUser.instance().insert(u)
+        result = DAOUser.instance().readAll()
+        self.assertEqual( len(result), 1 )
 
 
     def test_delete(self):
-        self.daouser.deleteAll()
+        DAOUser.instance().deleteAll()
 
         u = User("delete@user", "guitar")
-        self.daouser.insert(u)
-        resp = self.daouser.delete(u)
-        result = self.daouser.readAll()
-        self.assertEqual(0, len(result))
+        DAOUser.instance().insert(u)
+        resp = DAOUser.instance().delete(u)
+        result = DAOUser.instance().readAll()
+        self.assertEqual( len(result), 0 )
 
 
     def test_find(self):
-        self.daouser.deleteAll()
+        DAOUser.instance().deleteAll()
 
         u = User("find@user", "guitar")
-        self.daouser.insert(u)
-        result = self.daouser.find(u)
-        self.assertEqual(u.toDict(), result)
+        DAOUser.instance().insert(u)
+        result = DAOUser.instance().find(u)
+        self.assertEqual( u.toDict(), result )
 
 
     def test_update(self):
-        self.daouser.deleteAll()
+        DAOUser.instance().deleteAll()
 
         u1 = User("update@user", "guitar")
-        self.daouser.insert(u1)
+        DAOUser.instance().insert(u1)
         u1.instrument = "bass"
-        self.daouser.update(u1)
+        DAOUser.instance().update(u1)
 
         u2 = User(u1.email, "")
-        result = self.daouser.find(u2)
+        result = DAOUser.instance().find(u2)
 
         self.assertEqual(u1.toDict(), result)
 

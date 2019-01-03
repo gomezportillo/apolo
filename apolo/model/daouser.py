@@ -1,18 +1,23 @@
 import pymongo
 
 from model import user
+from auxiliary.singleton import Singleton
 
+MONGODB_URI = 'mongodb://user:user123@ds024548.mlab.com:24548/apolo-mongodb'
 PRIMARY_KEY = 'email'
-COLLECTION_NAME = 'users'
+COLLECTION_USERS = 'users'
 
+
+@Singleton
 class DAOUser:
 
-    def __init__(self, MONGODB_URI):
-        self.mongo_client = pymongo.MongoClient(MONGODB_URI)
+    def __init__(self):
+        self.mongo_client = pymongo.MongoClient( MONGODB_URI )
         self.apolo_ddbb = self.mongo_client.get_database() # default ddbb as im using a sadxbox mlab account
-        self.collection = self.apolo_ddbb[COLLECTION_NAME]
+        self.collection = self.apolo_ddbb[ COLLECTION_USERS ]
 
         self.set_up_ddbb()
+
 
     def insert(self, user):
         try:
@@ -22,6 +27,7 @@ class DAOUser:
         except:
             return 'ERROR'
         return 'SUCCESS'
+
 
     def update(self, user):
         criteria = {'email' : user.email}
@@ -36,6 +42,7 @@ class DAOUser:
         except:
             return 'ERROR'
 
+
     def readAll(self):
         cursor = self.collection.find()
 
@@ -48,6 +55,7 @@ class DAOUser:
 
         return users
 
+
     def delete(self, user):
         criteria = {'email' : user.email}
 
@@ -58,6 +66,7 @@ class DAOUser:
 
         return 'SUCCESS'
 
+
     def deleteAll(self):
         try:
             self.collection.drop()
@@ -65,6 +74,7 @@ class DAOUser:
             return 'ERROR'
 
         return 'SUCCESS'
+
 
     def find(self, user):
         criteria = {}

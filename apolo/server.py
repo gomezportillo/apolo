@@ -27,7 +27,7 @@ def log():
 @app.route('/rest/users', methods=['PUT'])
 def insert():
     new_user = parse_arguments_to_user( request.form )
-    status = daouser.insert( new_user )
+    status = DAOUser.instance().insert( new_user )
 
     result = {}
     result['status'] = status
@@ -41,7 +41,7 @@ def insert():
 @app.route('/rest/users', methods=['POST'])
 def update():
     user = parse_arguments_to_user( request.form )
-    status = daouser.update(user)
+    status = DAOUser.instance().update(user)
 
     result = {}
     result['status'] = status
@@ -52,11 +52,10 @@ def update():
     return Response(json.dumps(result), status=200, mimetype='application/json')
 
 
-
 @app.route('/rest/users', methods=['DELETE'])
 def delete():
     user = parse_arguments_to_user( request.form )
-    status = daouser.delete(user)
+    status = DAOUser.instance().delete(user)
 
     result = {}
     result['status'] = status
@@ -83,7 +82,7 @@ def find():
     if user.empty():
         status = 'USER_EMPTY'
     else:
-        users = daouser.find(user)
+        users = DAOUser.instance().find(user)
 
     users_json = ''
     for u in users:
@@ -97,13 +96,13 @@ def find():
 
 @app.route('/rest/users/all', methods=['GET'])
 def readall():
-    users = daouser.readAll()
+    users = DAOUser.instance().readAll()
     return Response(json.dumps(users), status=200, mimetype='application/json')
 
 
 @app.route('/rest/users/all', methods=['DELETE'])
 def deleteAll():
-    status = daouser.deleteAll()
+    status = DAOUser.instance().deleteAll()
 
     result = {}
     result['status'] = status
