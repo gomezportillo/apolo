@@ -96,8 +96,8 @@ Para conseguir la integración con Travis-CI y Heroku, tras añadir el proyecto 
 
 El archivo de configuración de Travis-CI puede verse [aquí](.travis.yml) y los tests,
 
-* Del DAO del usuario, [aquí](apolo/test_daouser.py).
-* Del servidor, [aquí](apolo/test_server.py).
+* Del DAO del usuario, [aquí](apolo/test/test_daouser.py).
+* Del servidor, [aquí](apolo/test/test_server.py).
 
 Dicho archivo de configuración contiene la rama que será testeada, el lenguaje de programación y su versión, las dependencias del proyecto (guardadas en el archivo [requirements.txt](requirements.txt)), la ruta hacia los tests a ejecutar y la información necesaria para desplegar la aplicación en Heroku una vez pasados los tests.
 
@@ -139,15 +139,15 @@ La documentación del **hito 5** correspondiente a la orquestación de máquinas
 
 # Funcionalidad implementada
 
-Actualmente **Apolo** atiende las siguientes peticiones HTTP con los parámetros `{'email': $CORREO, 'instrument': $INSTRUMENTO}` y devuelve las respuestas en formato JSON. Además, ofrece un manejo de las excepciones `404` y `405` de HTTP e indica a través del código `200` que todo ha ido correctamente.
+Actualmente **Apolo** atiende las siguientes peticiones HTTP con los parámetros `{'email': $CORREO, 'instrument': $INSTRUMENTO}` y devuelve las respuestas en formato JSON. Además, ofrece un manejo de las excepciones `404` y `405` de HTTP e indica a través de códigos HTTP el resultado de las operaciones.
 
-* **PUT** en _/rest/users_ guarda en la base de datos el usuario especificado en los parámetros.
-* **POST** en _/rest/users_ actualiza el usuario indicado en los parámetros.
-* **GET** en _/rest/users_ obtiene el usuario indicado a través de los parámetros.
-* **DELETE** en _/rest/users_ borra el usuario indicado en los parámetros.
-* **GET** en _/rest/users/all_ devuelve todos los usuario del sistema.
-* **DELETE** en _/rest/users/all_ elimina todos los usuarios del sistema.
-* **GET** en _/rest/log_ devolverá el log completo del servidor, que incluye la fecha de despliegue, los errores y las órdenes de creación y borrado de usuarios.
+* **PUT** en `/rest/users` guarda en la base de datos el usuario especificado en los parámetros.
+* **POST** en `/rest/users` actualiza el usuario indicado en los parámetros.
+* **GET** en `/rest/users/<email>` devuelve el usuario con el email indicado.
+* **DELETE** en `/rest/users/<email>` borra el usuario con el email indicado.
+* **GET** en `/rest/users/all` devuelve todos los usuario del sistema.
+* **DELETE** en `/rest/users/all` elimina todos los usuarios del sistema.
+* **GET** en `/rest/log` devolverá el log completo del servidor, que incluye la fecha de despliegue, los errores y las órdenes de creación y borrado de usuarios, así como los errores que haya habido.
 
 Esto puede verse con más profundidad en el [propio servidor](apolo/server.py).
 
@@ -156,7 +156,7 @@ Esto puede verse con más profundidad en el [propio servidor](apolo/server.py).
 La orden HTTP,
 
 ```
-PUT/ {'email':'jhon@doe', 'insturment', 'guitar'} en https://apolo-cc.herokuapp.com/users
+PUT/ {'email':'jhon@doe', 'insturment', 'guitar'} en https://apolo-cc.herokuapp.com/rest/users
 ```
 
 Devolverá la cadena JSON,

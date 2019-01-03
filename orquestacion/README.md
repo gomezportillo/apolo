@@ -24,17 +24,17 @@
 
 # Instalación de Vagrant
 
-Para descargar Vagrant debemos irnos a su [página web](https://www.vagrantup.com/downloads.html). Tras descargar el paquete `.deb` correspondiente, basta situarse en el directorio de descargas y ejecutar
+Para descargar Vagrant debemos irnos a su [página web](https://www.vagrantup.com/downloads.html). En este caso se está trabajando con Ubuntu, así que tras descargar el paquete `.deb`, basta situarse en el directorio de descargas y ejecutar
 
 `sudo dpkg -i vagrant_X_x86_64.deb`,
 
 donde `X` es la versión correspondiente, para instalar Vagrant. En este caso, se ha instalado la versión `2.2.2`.
 
-Se puede comprobar su correcta instalación ejecutando `vagrant --version`-
+Se puede comprobar su correcta instalación ejecutando `vagrant --version`.
 
 ## Integración con Azure
 
-Lo primero que tenemos que hacer es comprobar que el CLI de Azure se ecuentra instalado, para lo que basta ejecutar `az --version`.
+Lo primero que tenemos que hacer es comprobar que el CLI de Azure se encuentra instalado, para lo que basta ejecutar `az --version`.
 
 Para poder usar Azure con Vagrant, primer necesitamos integrarlos. Para ello, primero es necesario generar un _Azure Active Directory_ (AAD) para dar permiso a Vagrant, y tras ello instalar el plugin de Azure para Vagrant.
 
@@ -70,7 +70,7 @@ vagrant plugin install vagrant-azure
 
 ## Integración con Ansible
 
-Para poder provisionar con Ansible desde Vagrant es necesario tenerlo instalado, para lo cual basta con seguir los pasos indicados el en [hito 3](https://github.com/gomezportillo/apolo/tree/master/provision).
+Para poder provisionar con Ansible desde Vagrant basta con tenerlo instalado, para lo cual es necesario seguir los pasos indicados el en [hito 3](https://github.com/gomezportillo/apolo/tree/master/provision).
 
 # Vagrantfile
 
@@ -116,17 +116,22 @@ Vagrant.configure('2') do |config|
 	end
 
 	config.vm.provision "ansible" do |ansible|
+		ansible.compatibility_mode = "2.0"
   	ansible.playbook = PLAYBOOK_NAME
 	end
 
 end
 ```
 
-Las últimas líneas sirven para provisionar la máquina virtual por medio del playbook de Ansible lo que, aunque no es necesario para este hito, sí es conveniente ya que evita tener que hacerlo posteriormente de manera manual.
+He partido del [readme del GitHub oficial de Azure](https://github.com/Azure/vagrant-azure) para generar el Vagrantfile, aunque tuve que adaptarlo a mis necesidades. Como necesitaba un nombre para poder acceder a las máquinas ya creadas desde Vagrant, como se muestra un poco más abajo, tuve que añadir la línea 2 del bloque de código anterior.
+
+Las últimas líneas sirven para provisionar la máquina virtual por medio del playbook de Ansible lo que, aunque no es necesario para este hito, sí es conveniente ya que evita tener que hacerlo posteriormente de manera manual. La línea en la que se especifica la compatibilidad, aunque tampoco es necesaria, permite indicar manualmente la versión de Ansible que estamos utilizando para evitar que Vagrant tenga que adivinarla.
+
+Por último, es necesario decir que para entender completamente la sintaxis del Vagrantfile tuve que buscar algunos tutoriales de Ruby.
 
 ## Ejecución
 
-Una vez que ya está todo configurado podemos ejecutar Vagrant, para lo que basta con ejecutar.
+Una vez que ya está todo configurado podemos  situarnos en el directorio _orquestacion/_ para ejecutar Vagrant, aunque primero es necesario especificar el proveedor que estamos utilizando. Para esto, debemos ejecutar Vagrant de la siguiente manera,
 
 `vagrant up --provider=azure`.
 
