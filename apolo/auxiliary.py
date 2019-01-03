@@ -1,4 +1,4 @@
-# The aim of this file is to clarify the server code
+# The aim of this file is to clarify the server code holding variables not related to it
 
 import os
 import logging
@@ -22,9 +22,10 @@ server_info['project']      = 'Apolo'
 
 
 # Log configuration
-if os.path.exists('logs'):
-    shutil.rmtree('logs')
-os.makedirs('logs')
+if os.name != 'nt': # if not windows as shutil does not work
+    if os.path.exists('logs'):
+        shutil.rmtree('logs')
+    os.makedirs('logs')
 
 LOG_FILE = os.path.join('logs', 'apolo.log')
 
