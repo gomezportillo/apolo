@@ -24,10 +24,10 @@ Para instalar Docker en el entorno de desarrollo local se han seguido los pasos 
     sudo apt-get update
     sudo apt-get install docker-ce
 
-Podemos comprobar que Docker ha sido instalado correctamente y el daemon se ha inizializado podemos
+Para comprobar que Docker ha sido instalado correctamente y el daemon se ha inicializado podemos,
 
--   Ejecutar `sudo systemctl status docker` para comprobar que el servicio está activo.
--   Descargar y ejecutar un proyecto de prueba con `sudo docker run hello-world`. Docker, al no encontrar el proyecto localmente, se conectará a los repositorios oficiales, descargará la imagen, creará el contenedor y lo ejecutará, informándonos de que todo ha ido correctamente.
+* Ejecutar `sudo systemctl status docker` para comprobar que el servicio está activo.
+* Descargar y ejecutar un proyecto de prueba con `sudo docker run hello-world`. Docker, al no encontrar el proyecto localmente, se conectará a los repositorios oficiales, descargará la imagen, creará el contenedor y lo ejecutará, informándonos de que todo ha ido correctamente.
 
 ## Iniciar sesión
 
@@ -96,7 +96,7 @@ Si quisiéramos ejecutar el contenedor sin salida en la terminal, bastaría ejec
 
 ## Repositorio en DockerHub
 
-Una vez hecho login localmente, basta con ejecutar `docker push pedroma1/apolo:1.0` para subir la imagen local al repositorio creado anteriormente, siempre que los nombres de usuario e imagen coincidan. Se creará una nueva tag o versión en el repositorio remoto que podremos descargar con `docker pull pedroma1/apolo:1.0`. El link al repositorio es (https://cloud.docker.com/repository/docker/pedroma1/apolo)[https://cloud.docker.com/repository/docker/pedroma1/apolo].
+Una vez hecho login localmente, basta con ejecutar `docker push pedroma1/apolo:1.0` para subir la imagen local al repositorio creado anteriormente, siempre que los nombres de usuario e imagen coincidan. Se creará una nueva tag o versión en el repositorio remoto que podremos descargar con `docker pull pedroma1/apolo:1.0`. El link al repositorio es https://cloud.docker.com/repository/docker/pedroma1/apolo.
 
 ![Repositorio en DockerHub](img/repo-dockerhub.png)
 
@@ -104,7 +104,7 @@ Todos los comandos, tanto para la creación de la imagen como para su subida a D
 
 ## Despliegue
 
-He visto que todos mis compañeros lo estaban desplegando en Azure, así que me ha parecido más interesante hacerlo en Heroku. Además, es extremadamente probable que en un futuro trabaje con Docker y no tenga cuenta en Azure, por lo que hacerlo en Heroku será una de mis primeras alternativas. [Referencia](https://dashboard.heroku.com/apps/apolo-docker/deploy/heroku-container)
+He visto que todos mis compañeros lo estaban desplegando en Azure, así que me ha parecido más interesante hacerlo en Heroku. Además, es extremadamente probable que en un futuro trabaje con Docker y no tenga cuenta en Azure, por lo que hacerlo en Heroku será una de mis primeras alternativas.
 
 Lo primero que haremos será crear un proyecto nuevo en Heroku, al que llamaremos **apolo-docker**.
 
