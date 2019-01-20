@@ -68,19 +68,25 @@ vagrant:
 
 
 build-docker:
-	docker build --tag=apolo:1.0 .
+	docker build --tag=pedroma1/apolo:1.0 .
 	docker image ls
 
 
+DOCKERNAME=pedroma1/apolo:1.0
 run-docker-local:
-		docker run -it -p 80:80 apolo:1.0
+		docker run -it -p 80:80 $DOCKERNAME
+
 
 run-docker-local-bg:
-	docker run -d -p 80:80 apolo:1.0
+	docker run -d -p 80:80 $DOCKERNAME
 
 
 run-docker-repository:
 	sudo apt-get install docker.io
-	docker pull pedroma1/apolo
+	docker pull $DOCKERNAME
 	sudo service docker start
-	sudo docker run pedroma1/apolo
+	sudo docker run $DOCKERNAME
+
+
+push-image-dockerhub:
+	docker push $DOCKERNAME
