@@ -33,6 +33,6 @@ Podemos comprobar que Docker ha sido instalado correctamente y el daemon se ha i
 
 ## Iniciar sesión
 
-Para iniciar sesión en Docker, primero deberemos registrarnos en [DockerHub](https://hub.docker.com/). Tras crear un usuario y una contraseña, ejecutamos `docker login` e introducimos los datos para conectarnos a nuestra cuenta.
+Para iniciar sesión en Docker, primero deberemos registrarnos en [DockerHub](https://hub.docker.com/). Tras crear un usuario y una contraseña y enlazar el repositorio de GitHub, ejecutamos `docker login` e introducimos los datos para conectarnos a nuestra cuenta.
 
 ## Dockerfile
