@@ -80,7 +80,7 @@ Cada hito tiene un link a su página en GitHub.
 * [x] [Hito 3](https://github.com/gomezportillo/apolo/milestone/3): Provisionamiento con Ansible
 * [x] [Hito 4](https://github.com/gomezportillo/apolo/milestone/5): Automatización de creación de VM con el CLI de Azure
 * [x] [Hito 5](https://github.com/gomezportillo/apolo/milestone/6): Orquestación con Vagrant
-* [ ] [Hito 6](https://github.com/gomezportillo/apolo/milestone/6): Contenedores Docker
+* [x] [Hito 6](https://github.com/gomezportillo/apolo/milestone/6): Contenedores Docker
 
 # Despliegue
 
@@ -141,6 +141,10 @@ La documentación del **hito 5** correspondiente a la orquestación de máquinas
 
 Yo he probado el proyecto de [@fpeiro](https://github.com/fpeiro) y este proyecto ha sido probado por [@xenahort](https://github.com/xenahort). En el [README de Vagrant](orquestacion/README.md) se incluye más detalles, así como los pantallazos generados tras las ejecuciones.
 
+# Contenedores
+
+La documentación de Docker puede verse en el [siguiente enlace](contenedores/).
+
 # Funcionalidad implementada
 
 Actualmente **Apolo** atiende las siguientes peticiones HTTP con los parámetros `{'email': $CORREO, 'instrument': $INSTRUMENTO}` y devuelve las respuestas en formato JSON. Además, ofrece un manejo de las excepciones `404` y `405` de HTTP e indica a través de códigos HTTP el resultado de las operaciones.
@@ -174,6 +178,7 @@ Siempre y cuando dicho email no exista previamente, ya que es la clave primaria 
 ```
 {'status': 'EMAIL_ALREADY_EXISTS', 'message': 'On inserting usser with email jhon@doe'}
 ```
+
 # URLs de desgliegue
 
 ## Hito 2 (Heroku)
@@ -191,3 +196,5 @@ MV2: 13.79.23.106
 ## Hito 5 (Vagrant)
 
 Despliegue Vagrant: 40.127.169.118
+
+## Hito 6 (Docer)

@@ -5,6 +5,7 @@ PYTEST  := pytest
 
 all: run
 
+
 run:
 	$(PYTHON) apolo/server.py
 
@@ -12,13 +13,16 @@ test:
 	$(PYTEST) apolo/test/test_daouser.py
 	$(PYTEST) apolo/test/test_server.py
 
+
 install:
 	$(PIP) install -r requirements.txt
+
 
 install-ansible:
 	sudo apt-get install software-properties-common
 	sudo apt-add-repository --yes --update ppa:ansible/ansible
 	sudo apt-get install ansible
+
 
 install-azure:
 	sudo apt-get install apt-transport-https lsb-release software-properties-common -y
@@ -28,20 +32,35 @@ install-azure:
 	sudo apt-get update
 	sudo apt-get install azure-cli
 
+
+install-docker:
+	sudo apt-get remove docker docker-engine docker.io containerd runc
+	sudo apt-get install apt-transport-https ca-certificates curl gnupg2 software-properties-common -y
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+	sudo apt-get update
+	sudo apt-get install docker-ce
+
+
 install-milestone4-tools:
 	sudo apt-get install jq httperf -y
 
+
 ansible:
 	cd provision/ansible/ && $(ANSIBLE) playbook.yml
+
 
 connect-azure:
 	echo "Outdated"
 	# ssh -i ~/SSH_APOLO/key pedroma@23.96.18.95
 
+
 .PHONY: acopio
+
 
 acopio:
 	cd acopio/ &&	chmod +x acopio.sh && bash acopio.sh
+
 
 vagrant:
 	cd orquestacion/ && vagrant up --provider=azure
