@@ -4,8 +4,10 @@
 
 ## Tabla de contenidos
 
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:0 orderedList:0 -->
 
+- [Proyecto de Cloud Computing](#proyecto-de-cloud-computing)
+	- [Tabla de contenidos](#tabla-de-contenidos)
 - [Build status](#build-status)
 - [Descripción del problema](#descripcin-del-problema)
 - [Solución propuesta](#solucin-propuesta)
@@ -19,8 +21,10 @@
 - [Provisionamiento](#provisionamiento)
 	- [Ansible](#ansible)
 	- [Testing de Ansible](#testing-de-ansible)
-- [Autmatización de creación de VM con el CLI de Azure](#autmatización-de-creación-de-vm-con-el-cli-de-azure)
-- [Orquestación con Vagrant](#orquestación-con-vagrant)
+- [Autmatización de creación de VM con el CLI de Azure](#autmatizacin-de-creacin-de-vm-con-el-cli-de-azure)
+- [Orquestación con Vagrant](#orquestacin-con-vagrant)
+	- [Testing de Vagrant](#testing-de-vagrant)
+- [Contenedores](#contenedores)
 - [Funcionalidad implementada](#funcionalidad-implementada)
 	- [Ejemplo de ejecución práctico](#ejemplo-de-ejecucin-prctico)
 - [URLs de desgliegue](#urls-de-desgliegue)
@@ -28,6 +32,7 @@
 	- [Hito 3 (Azure)](#hito-3-azure)
 	- [Hito 4 (Acopio)](#hito-4-acopio)
 	- [Hito 5 (Vagrant)](#hito-5-vagrant)
+	- [Hito 6 (Docker)](#hito-6-docker)
 
 <!-- /TOC -->
 
@@ -197,4 +202,6 @@ MV2: 13.79.23.106
 
 Despliegue Vagrant: 40.127.169.118
 
-## Hito 6 (Docer)
+## Hito 6 (Docker)
+
+Contenedor: https://apolo-docker.herokuapp.com/

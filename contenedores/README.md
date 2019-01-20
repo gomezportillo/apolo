@@ -84,24 +84,36 @@ python              3.6-alpine          1837080c5e87        3 weeks ago         
 
 ```
 
-El nombre de la imagen sigue el estandar `user/image:version`. Esto nos permitirá subirla a DockerHub más adelante.
+El nombre de la imagen sigue el estándar `user/image:version`. Esto nos permitirá subirla a DockerHub más adelante.
 
 Ahora, para ejecutar dicha imagen usaremos el comando `docker run -it -p 80:80 pedroma1/apolo:1.0`.
 
 * `-t` indica a Docker que estamos usando una consola para que nos muestre información.
-* `-i` mantiene abierta la salida STDIN. Según [la página de Docker](https://docs.docker.com/engine/reference/run/) se debe usar junto a `-t` para ver la salida de la consola.
+* `-i` mantiene abierta la salida stdin. Según [la página de Docker](https://docs.docker.com/engine/reference/run/) se debe usar junto a `-t` para ver la salida de la consola.
 * `-p` bindea el puerto de la máquina local con el del contenedor. Así, cualquier mensaje entrante en el puerto 80 de la máquina es redirigido al puerto 80 del contenedor. Estos puertos no tienen por qué ser iguales.
 
 Si quisiéramos ejecutar el contenedor sin salida en la terminal, bastaría ejecutar `docker run -d -p 80:80 pedroma1/apolo:1.0`. La opción `-d` indica a Docker que lo ejecute como daemon.
 
 ## Repositorio en DockerHub
 
-Una vez hecho login localmente, basta con ejecutar `docker push pedroma1/apolo:1.0` para subir la imagen local al repositorio creado anteriormente, siempre que los nombres de usuario e imagen coincidan. Se creará una nueva versión en el reposotitorio remoto que podremos descargar con `docker pull pedroma1/apolo:1.0`.
+Una vez hecho login localmente, basta con ejecutar `docker push pedroma1/apolo:1.0` para subir la imagen local al repositorio creado anteriormente, siempre que los nombres de usuario e imagen coincidan. Se creará una nueva tag o versión en el repositorio remoto que podremos descargar con `docker pull pedroma1/apolo:1.0`. El link al repositorio es (https://cloud.docker.com/repository/docker/pedroma1/apolo)[https://cloud.docker.com/repository/docker/pedroma1/apolo].
 
 ![Repositorio en DockerHub](img/repo-dockerhub.png)
 
+Todos los comandos, tanto para la creación de la imagen como para su subida a DockerHub, han sido incluidos en el [Makefile del proyecto](https://github.com/gomezportillo/apolo/blob/master/Makefile) para poder ser ejecutados cómodamente.
+
 ## Despliegue
 
-He visto que todos mis compañeros lo estaban desplegando en Azure, así que me ha parecido más interesante hacerlo en Heroku. Además, es extremadamente probable que en un futuro trabaje con Docker y no tenga cuenta en Azure, por lo que hacerlo en Heroku será una de mis primeras alternativas.
+He visto que todos mis compañeros lo estaban desplegando en Azure, así que me ha parecido más interesante hacerlo en Heroku. Además, es extremadamente probable que en un futuro trabaje con Docker y no tenga cuenta en Azure, por lo que hacerlo en Heroku será una de mis primeras alternativas. [Referencia](https://dashboard.heroku.com/apps/apolo-docker/deploy/heroku-container)
 
-Tras descargar e iniciar sesión en el CLI de Heroku,
+Lo primero que haremos será crear un proyecto nuevo en Heroku, al que llamaremos **apolo-docker**.
+
+Tras descargar e iniciar sesión en el CLI de Heroku, hacemos login en el Registro de Contenedores con `heroku container:login`.
+
+Ahora, tras situarnos en el directorio raíz del proyecto y ejecutar `heroku container:push web --app apolo-docker` volveremos a generar la imagen a partir del Dockerfile y la subiremos a Heroku.
+
+Y por último, sólo queda ejecutar `heroku container:release web --app apolo-docker` para publicarla.
+
+![Heroku+Docker](img/heroku+docker.png)
+
+![Container deployed](img/container-deployed.png)

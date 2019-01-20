@@ -95,3 +95,8 @@ run-docker-repository:
 
 push-image-dockerhub:
 	docker push $DOCKERNAME
+
+
+push-container-heroku:
+	heroku container:push web --app apolo-docker
+	heroku container:release web --app apolo-docker
