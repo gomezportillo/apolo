@@ -3,6 +3,8 @@ PIP 	  := pip3
 ANSIBLE := ansible-playbook
 PYTEST  := pytest
 
+DOCKERNAME=pedroma1/apolo:1.0
+
 
 all: run
 
@@ -47,6 +49,10 @@ install-milestone4-tools:
 	sudo apt-get install jq httperf -y
 
 
+install-heroku:
+	sudo snap install --classic heroku
+
+
 ansible:
 	cd provision/ansible/ && $(ANSIBLE) playbook.yml
 
@@ -72,7 +78,6 @@ build-docker:
 	docker image ls
 
 
-DOCKERNAME=pedroma1/apolo:1.0
 run-docker-local:
 		docker run -it -p 80:80 $DOCKERNAME
 
