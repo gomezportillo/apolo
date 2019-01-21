@@ -96,11 +96,20 @@ Si quisiéramos ejecutar el contenedor sin salida en la terminal, bastaría ejec
 
 ## Repositorio en DockerHub
 
+Podemos subir el contenedor a DockerHub de dos manreas; en este caso se han utilizado ambas para comprobar que todo funcionaba correctamente.
+
+
+### Push manual
+
 Una vez hecho login localmente, basta con ejecutar `docker push pedroma1/apolo:1.0` para subir la imagen local al repositorio creado anteriormente, siempre que los nombres de usuario e imagen coincidan. Se creará una nueva tag o versión en el repositorio remoto que podremos descargar con `docker pull pedroma1/apolo:1.0`. El link al repositorio es https://cloud.docker.com/repository/docker/pedroma1/apolo.
 
-![Repositorio en DockerHub](img/repo-dockerhub.png)
-
 Todos los comandos, tanto para la creación de la imagen como para su subida a DockerHub, han sido incluidos en el [Makefile del proyecto](https://github.com/gomezportillo/apolo/blob/master/Makefile) para poder ser ejecutados cómodamente.
+
+### Push automático
+
+Para generar automáticamente el contenedor debemos añadir el repositorio de GitHub a DockerHub y seleccionamos que se construya automáticamente tras hacer push en GitHub. A continuación se adjunta un pantallazo en el que se ven los dos tags del proyecto; el primero (v1.0) fue subido  manualmente y el segundo (*latest*) se ha generado automáticamente desde el repositorio de GitHub.
+
+![Repositorio en DockerHub](img/repo-dockerhub.png)
 
 ## Despliegue
 
