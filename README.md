@@ -205,3 +205,4 @@ Despliegue Vagrant: 40.127.169.118
 ## Hito 6 (Docker)
 
 Contenedor: https://apolo-docker.herokuapp.com/
+DockerHub: https://hub.docker.com/r/pedroma1/apolo

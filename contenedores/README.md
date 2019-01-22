@@ -101,7 +101,7 @@ Podemos subir el contenedor a DockerHub de dos manreas; en este caso se han util
 
 ### Push manual
 
-Una vez hecho login localmente, basta con ejecutar `docker push pedroma1/apolo:1.0` para subir la imagen local al repositorio creado anteriormente, siempre que los nombres de usuario e imagen coincidan. Se creará una nueva tag o versión en el repositorio remoto que podremos descargar con `docker pull pedroma1/apolo:1.0`. El link al repositorio es https://cloud.docker.com/repository/docker/pedroma1/apolo.
+Una vez hecho login localmente, basta con ejecutar `docker push pedroma1/apolo:1.0` para subir la imagen local al repositorio creado anteriormente, siempre que los nombres de usuario e imagen coincidan. Se creará una nueva tag o versión en el repositorio remoto que podremos descargar con `docker pull pedroma1/apolo:1.0`. El link al repositorio es https://hub.docker.com/r/pedroma1/apolo.
 
 Todos los comandos, tanto para la creación de la imagen como para su subida a DockerHub, han sido incluidos en el [Makefile del proyecto](https://github.com/gomezportillo/apolo/blob/master/Makefile) para poder ser ejecutados cómodamente.
 
