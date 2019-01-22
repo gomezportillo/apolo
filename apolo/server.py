@@ -13,6 +13,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 @app.route('/about', methods=['GET'])
+@app.route('/status', methods=['GET'])
 def about():
     server_info['ruta'] = request.url
     return Response(json.dumps(server_info), status=200, mimetype='application/json')
